@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.good.framework.model.camera.ImageViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorMainBg">
+
+        <com.god.uikit.widget.TitleLayout
+            android:id="@+id/title_showimage"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/appTitleHeight"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:menuType="menu_image"
+            app:menuImage="@drawable/ic_title_menu_white"
+            app:titleText="@string/title_uploadimg"
+            app:iconBackType="rectangle"
+            app:iconBack="@drawable/back_arrow"
+            android:background="@color/colorUploadimgTitle" />
+
+        <ImageView
+            android:id="@+id/iv_imageview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/title_showimage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@{viewModel.file}"
+            android:scaleType="fitXY"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

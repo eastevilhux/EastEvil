@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_network">网络异常,请检查网络状态</string>
+    <string name="error_system">发生未知错误,请重试</string>
+    <string name="error_service">服务开小差了,请重试</string>
+    <string name="lib_load_more">加载更多</string>
+    <string name="lib_loading">正在加载数据</string>
+    <string name="lib_nomore">暂无更多数据</string>
+    <string name="lib_time">时间</string>
+    <string name="lib_data">日期</string>
+
+    <string name="setting">设置</string>
+    <string name="message">消息</string>
+    <string name="search">搜索</string>
+    <string name="edit">编辑</string>
+    <string name="title_uploadimg">图片上传</string>
+    <string name="title_showimage">图片裁剪</string>
+
+    <string name="upload_img_error_unknowapptype">未知的app类型</string>
+    <string name="upload_img_error_unknowimgtype">未知的图片类型</string>
+    <string name="enter_upload">确定上传</string>
+    <string name="choose_image">图片上传</string>
+    <string name="request_per_album">系统需要获取您的相册权限</string>
+    <string name="request_per_camer">系统需要获取您的相机权限</string>
+    <string name="per_error_album">您未授予相册权限，该功能暂无法使用</string>
+    <string name="per_error_camera">您未授予相机权限，该功能暂无法使用</string>
+    <string name="error_save_image">图片保存失败,请重试</string>
+
+    <string name="menu_urcop">裁剪</string>
+    <string name="menu_finish">完成</string>
+</resources>
