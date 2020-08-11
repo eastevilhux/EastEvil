@@ -7,11 +7,18 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.god.uikit.widget.TitleLayout
+import com.god.uikit.widget.ViewToast
+import com.good.framework.R
+import com.good.framework.entity.Error
+import com.good.framework.entity.ErrorType
 
 abstract open class BaseFragment<D : ViewDataBinding,V : EastViewModel<*>> : Fragment(),TitleLayout.OnTitleListener{
     val TAG = "BaseFragment=>";
@@ -42,10 +49,21 @@ abstract open class BaseFragment<D : ViewDataBinding,V : EastViewModel<*>> : Fra
         viewModel.setLifecycleOwner(this);
         lifecycle.addObserver(viewModel);
         dataBinding.lifecycleOwner = this;
-
-        viewModel.initOnFragmentActivityCreate();
-
         initView()
+        viewModel.initOnFragmentActivityCreate();
+        viewModel?.error.observe(this, Observer {
+            when(it.type){
+                ErrorType.ERROR_LOGIN->{
+                    loginError();
+                }
+                ErrorType.ERROR_UNKNOW->{
+                    reqeustError(it);
+                }
+                else->{
+                    showToastShort(it.msg?:getString(R.string.error_unknow));
+                }
+            }
+        })
     }
 
     abstract fun getLayoutRes():Int;
@@ -56,8 +74,33 @@ abstract open class BaseFragment<D : ViewDataBinding,V : EastViewModel<*>> : Fra
 
     }
 
+    open fun loginError(){
+
+    }
+
     override fun onMenu() {
 
+    }
+
+    open fun reqeustError(error:Error){
+
+    }
+
+
+    fun showToastShort(@StringRes strRes:Int){
+        ViewToast.show(activity!!,strRes, Toast.LENGTH_SHORT);
+    }
+
+    fun showToastShort(strRes:String){
+        ViewToast.show(activity!!,strRes,Toast.LENGTH_SHORT);
+    }
+
+    fun showToastLong(@StringRes strRes:Int){
+        ViewToast.show(activity!!,strRes,Toast.LENGTH_LONG);
+    }
+
+    fun showToastLong( strRes:String){
+        ViewToast.show(activity!!,strRes,Toast.LENGTH_LONG);
     }
 
     override fun onBack() {

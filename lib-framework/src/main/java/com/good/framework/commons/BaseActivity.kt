@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.god.uikit.widget.LoadingDialog
 import com.god.uikit.widget.TitleLayout
 import com.god.uikit.widget.ViewToast
 import com.good.framework.R
@@ -23,6 +24,8 @@ abstract class BaseActivity<D : ViewDataBinding,V : EastViewModel<*>> : AppCompa
     val DEFAULT_CODE = 100;
     var dataBinding : D? = null;
     var viewModel:V? = null;
+
+    var loading:LoadingDialog? = null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,8 +59,19 @@ abstract class BaseActivity<D : ViewDataBinding,V : EastViewModel<*>> : AppCompa
             }
         })
 
+        viewModel?.loading?.observe(this, Observer {
+            if(it){
+                showLoading();
+            }else{
+                dismissLoading();
+            }
+        })
+
         intent?.let {
             initIntentData(it);
+        }
+        if(needLoadingInit()){
+            viewModel?.showLoading();
         }
     }
 
@@ -66,6 +80,10 @@ abstract class BaseActivity<D : ViewDataBinding,V : EastViewModel<*>> : AppCompa
     abstract fun getVMClass() : Class<V>;
 
     abstract fun initView();
+
+    open fun needLoadingInit() : Boolean{
+        return false;
+    }
 
     open fun vmDataChange(data:VMData){
 
@@ -118,6 +136,23 @@ abstract class BaseActivity<D : ViewDataBinding,V : EastViewModel<*>> : AppCompa
 
     fun showToastLong( strRes:String){
         ViewToast.show(this,strRes,Toast.LENGTH_LONG);
+    }
+
+    fun showLoading(){
+        loading?:let {
+            loading = LoadingDialog(this);
+        }
+        if(!loading!!.isShowing){
+            loading!!.show();
+        }
+    }
+
+    fun dismissLoading(){
+        loading?.let {
+            if(it.isShowing){
+                it.dismiss();
+            }
+        }
     }
 
 

@@ -16,9 +16,12 @@ abstract class EastViewModel<T:VMData?>(application: Application) : BaseViewMode
 
     val error = MutableLiveData<Error>();
 
+    val loading = MutableLiveData<Boolean>();
+
     open fun initModel(){
         vmData.value = initData();
         vmData.value!!.code = VMData.Code.CODE_DEFAULT;
+        loading.value = false;
     }
 
     open fun initOnFragmentActivityCreate(){
@@ -39,6 +42,27 @@ abstract class EastViewModel<T:VMData?>(application: Application) : BaseViewMode
 
     fun getColor(@ColorRes colorRes: Int) : Int{
         return getApplication<Application>().getColor(colorRes);
+    }
+
+    fun showLoading(){
+        if(isMainThread()){
+            loading.value = true;
+        }else{
+            mainThread {
+                loading.value = true;
+            }
+        }
+    }
+
+
+    fun dismissLoading(){
+        if(isMainThread()){
+            loading.value = false;
+        }else{
+            mainThread {
+                loading.value = false;
+            }
+        }
     }
 
     open fun error(code : Int,msg : String? = getString(R.string.error_unknow)){
