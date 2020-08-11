@@ -28,8 +28,6 @@ class ImageActivity : BaseActivity<ImageActivityBinding, ImageViewModel>(), Menu
         const val TAG = "ImageActivity==>";
     }
 
-    private var loading : LoadingDialog? = null;
-
     private var menuPopup: RightMenuPopupWindow? = null;
 
     override fun getLayoutRes(): Int = R.layout.image_activity;
@@ -39,17 +37,19 @@ class ImageActivity : BaseActivity<ImageActivityBinding, ImageViewModel>(), Menu
     override fun initView() {
         dataBinding?.viewModel = viewModel;
         dataBinding?.titleShowimage!!.onTitleListener = this;
-        loading = LoadingDialog(this);
-        loading?.show();
         intent?.getStringExtra(UploadImgData.FILE_PATH_KEY)?.let { viewModel?.initFile(it) }
         menuPopup = RightMenuPopupWindow(this,this,R.string.menu_urcop,R.string.menu_finish)
+    }
+
+    override fun needLoadingInit(): Boolean {
+        return true;
     }
 
     override fun vmDataChange(data: VMData) {
         super.vmDataChange(data)
         var imageData : CameraData = data as CameraData;
         if(data.code == VMData.Code.CODE_SUCCESS){
-            loading?.dismiss();
+            viewModel?.showLoading();
             when(data.requestCode){
                 RESULT_CODE_SHOWIMG->{
 
