@@ -5,5 +5,6 @@ enum class ErrorType {
     ERROR_SYSTEM,
     ERROR_SERVICE,
     ERROR_LOGIN,
-    ERROR_UNKNOW;
+    ERROR_UNKNOW,
+    ERROR_DEFAULT
 }

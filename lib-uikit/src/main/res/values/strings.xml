@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="error_network">网络异常,请检查网络状态</string>
-    <string name="error_system">发生未知错误,请重试</string>
+    <string name="error_system">系统发生错误,请重试</string>
     <string name="error_service">服务开小差了,请重试</string>
+    <string name="error_unknow">发生未知错误,请重试</string>
     <string name="lib_load_more">加载更多</string>
     <string name="lib_loading">正在加载数据</string>
     <string name="lib_nomore">暂无更多数据</string>

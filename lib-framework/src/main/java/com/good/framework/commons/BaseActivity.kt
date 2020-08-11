@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.KeyEvent
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -11,6 +12,10 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.god.uikit.widget.TitleLayout
+import com.god.uikit.widget.ViewToast
+import com.good.framework.R
+import com.good.framework.entity.Error
+import com.good.framework.entity.ErrorType
 import com.good.framework.entity.VMData
 import pub.devrel.easypermissions.EasyPermissions
 
@@ -37,6 +42,20 @@ abstract class BaseActivity<D : ViewDataBinding,V : EastViewModel<*>> : AppCompa
             }
         })
 
+        viewModel?.error?.observe(this, Observer {
+            when(it.type){
+                ErrorType.ERROR_LOGIN->{
+                    loginError();
+                }
+                ErrorType.ERROR_UNKNOW->{
+                    reqeustError(it);
+                }
+                else->{
+                    showToastShort(it.msg?:getString(R.string.error_unknow));
+                }
+            }
+        })
+
         intent?.let {
             initIntentData(it);
         }
@@ -49,6 +68,14 @@ abstract class BaseActivity<D : ViewDataBinding,V : EastViewModel<*>> : AppCompa
     abstract fun initView();
 
     open fun vmDataChange(data:VMData){
+
+    }
+
+    open fun reqeustError(error:Error){
+
+    }
+
+    open fun loginError(){
 
     }
 
@@ -75,6 +102,22 @@ abstract class BaseActivity<D : ViewDataBinding,V : EastViewModel<*>> : AppCompa
 
     open fun initIntentData(intent : Intent){
 
+    }
+
+    fun showToastShort(@StringRes strRes:Int){
+        ViewToast.show(this,strRes, Toast.LENGTH_SHORT);
+    }
+
+    fun showToastShort(strRes:String){
+        ViewToast.show(this,strRes,Toast.LENGTH_SHORT);
+    }
+
+    fun showToastLong(@StringRes strRes:Int){
+        ViewToast.show(this,strRes,Toast.LENGTH_LONG);
+    }
+
+    fun showToastLong( strRes:String){
+        ViewToast.show(this,strRes,Toast.LENGTH_LONG);
     }
 
 
