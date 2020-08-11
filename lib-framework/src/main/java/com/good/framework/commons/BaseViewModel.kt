@@ -29,4 +29,20 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
         return AutoDisposeUtil.bindLifecycle(mLifecycleOwner!!)
     }
 
+    open fun onStart(){
+
+    }
+
+    open fun onResume(){
+
+    }
+
+    open fun onStop(){
+
+    }
+
+    open fun onPause(){
+
+    }
+
 }

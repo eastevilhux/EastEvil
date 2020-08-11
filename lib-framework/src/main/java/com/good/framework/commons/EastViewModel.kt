@@ -3,6 +3,7 @@ package com.good.framework.commons
 import android.app.Application
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import com.good.framework.R
 import com.good.framework.entity.Error
@@ -100,4 +101,14 @@ abstract class EastViewModel<T:VMData?>(application: Application) : BaseViewMode
     }
 
     open abstract fun initData() : T;
+
+
+    override fun onDestroy(owner: LifecycleOwner?) {
+        super.onDestroy(owner)
+        loading.value?.let {
+            if(it){
+                loading.value = false;
+            }
+        }
+    }
 }
