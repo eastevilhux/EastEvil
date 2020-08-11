@@ -1,5 +1,10 @@
 <resources>
 
+    <!-- Base application theme. -->
+    <style name="NoActionBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+    </style>
+
     <style name="BaseTextTheme">
         <item name="android:textSize">@dimen/appTextSize</item>
         <item name="android:textColor">@color/colorApp</item>

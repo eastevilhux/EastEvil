@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.good.framework.commons.EastExtKt;
 import com.good.framework.utils.JsonUtil;
+import com.good.framework.utils.LogUtil;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -34,11 +35,11 @@ public class LogInterceptor implements Interceptor {
         long duration=endTime-startTime;
         okhttp3.MediaType mediaType = response.body().contentType();
         String content = response.body().string();
-        Log.d(TAG,httpId+"----------Start----------------");
-        Log.d(TAG,httpId+"==URL=>"+request.url());
+        LogUtil.d(TAG,httpId+"----------Start----------------");
+        LogUtil.d(TAG,httpId+"==URL=>"+request.url());
         String method=request.method();
-        Log.d(TAG,httpId+"==METHOD=>"+method);
-        Log.d(TAG,httpId+"==REQUEST=>"+request.body().toString());
+        LogUtil.d(TAG,httpId+"==METHOD=>"+method);
+        LogUtil.d(TAG,httpId+"==REQUEST=>"+request.body().toString());
 
         Set<String> headers = request.headers().names();
         if(headers != null && !headers.isEmpty()){
@@ -49,7 +50,7 @@ public class LogInterceptor implements Interceptor {
                 key = iter.next();
                 map.put(key,request.header(key));
             }
-            Log.d(TAG,httpId+"==HEADERS=>"+ JsonUtil.Companion.getInstance().getGson().toJson(map));
+            LogUtil.e(TAG,httpId+"==HEADERS=>"+ JsonUtil.Companion.getInstance().getGson().toJson(map));
         }
         if(request.method().equals(method)){
             StringBuilder sb = new StringBuilder();
@@ -59,11 +60,11 @@ public class LogInterceptor implements Interceptor {
                     sb.append(body.encodedName(i) + "=" + body.encodedValue(i) + ",");
                 }
                 sb.delete(sb.length() - 1, sb.length());
-                Log.d(TAG, httpId+"==PARAMS=>"+sb.toString());
+                LogUtil.e(TAG, httpId+"==PARAMS=>"+sb.toString());
             }
         }
-        Log.d(TAG,httpId+"==REPONSE=>" + content);
-        Log.d(TAG,httpId+"----------End:"+duration+"毫秒----------");
+        LogUtil.e(TAG,httpId+"==REPONSE=>" + content);
+        LogUtil.e(TAG,httpId+"----------End:"+duration+"毫秒----------");
         return response.newBuilder()
                 .body(okhttp3.ResponseBody.create(mediaType, content))
                 .build();
