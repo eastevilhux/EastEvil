@@ -23,25 +23,32 @@ class AppModel private constructor(){
         private const val SERVICE_KEY_TEST = "testService";
     }
 
-    private val map : HashMap<String, Class<*>> by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
+    private val map : HashMap<String, Any> by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
         initRetrofit();
     };
 
-    private fun initRetrofit():HashMap<String, Class<*>>{
+    private fun initRetrofit():HashMap<String,Any>{
         var m = HashMap<String, Class<*>>();
         m.put(SERVICE_KEY_ACCOUNT,AccountService::class.java)
         m.put(SERVICE_KEY_TEST,TestService::class.java);
         RetrofitConfigure.initHttp(Constants.SERVICE_URL,Constants.TOKEN_URL,Constants.HTTP_CHARSET);
-        RetrofitConfigure.registerService(m);
-        return m;
+        var map =  RetrofitConfigure.registerService(m);
+        return map;
     }
 
     private val baseService : BaseService by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
         RetrofitFactory.instance.baseService;
     }
 
+    private val accountService : AccountService by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
+        map[SERVICE_KEY_ACCOUNT] as AccountService;
+    }
 
     fun before(): Result<KeySet> {
         return baseService.appBeforehand();
+    }
+
+    fun test(): Result<String> {
+        return accountService.test();
     }
 }
