@@ -14,10 +14,13 @@ import com.god.uikit.commons.Constants.Companion.REQUEST_CODE_CUTTING
 import com.good.framework.R
 import com.good.framework.http.commons.Constants
 import com.good.framework.model.camera.CameraActivity
+import com.good.framework.model.uploadimg.UploadImgData.Companion.CHILD_PATH_KEY
 import com.good.framework.model.uploadimg.UploadImgData.Companion.IMAGE_CUTHEIGHT_KEY
 import com.good.framework.model.uploadimg.UploadImgData.Companion.IMAGE_CUTWIDTH_KEY
 import com.good.framework.model.uploadimg.UploadImgData.Companion.IMAGE_HEIGHT_KEY
 import com.good.framework.model.uploadimg.UploadImgData.Companion.IMAGE_WIDTH_KEY
+import com.good.framework.model.uploadimg.UploadImgData.Companion.PROVINDER_KEY
+import com.good.framework.model.uploadimg.UploadImgData.Companion.ROOT_PAHT_KEY
 import com.good.framework.utils.AESUtil
 import com.good.framework.utils.JsonUtil
 import com.good.framework.utils.RSAUtil
@@ -73,7 +76,10 @@ fun takePhoto(
     width: Int = 0,
     height: Int = 0,
     cutWidth: Int = 0,
-    cutHeight: Int = 0
+    cutHeight: Int = 0,
+    provinder:String,
+    rootPaht : String,
+    childPath : String
 ) {
     if (activity == null && fragment == null) {
         throw IllegalAccessException("no content fond");
@@ -86,6 +92,9 @@ fun takePhoto(
     intent.putExtra(IMAGE_HEIGHT_KEY, height);
     intent.putExtra(IMAGE_CUTWIDTH_KEY, cutWidth);
     intent.putExtra(IMAGE_CUTHEIGHT_KEY, cutHeight);
+    intent.putExtra(PROVINDER_KEY,provinder);
+    intent.putExtra(ROOT_PAHT_KEY,rootPaht);
+    intent.putExtra(CHILD_PATH_KEY,childPath);
     activity?.let {
         it.startActivityForResult(intent, com.god.uikit.commons.Constants.REQEUST_CODE_CAMERA)
     }

@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.good.framework.commons.BaseViewModel
 import com.good.framework.commons.EastViewModel
+import com.good.framework.entity.ImageData
+import java.io.File
 
 class UploadimgViewModel(application: Application) : EastViewModel<UploadImgData>(application) {
 
@@ -15,6 +17,8 @@ class UploadimgViewModel(application: Application) : EastViewModel<UploadImgData
 
     val haveImage = MutableLiveData<Boolean>();
 
+    val imageFile = MutableLiveData<File>();
+
     //加载关联对象的id
     var relationId: Int = 0;
 
@@ -22,12 +26,18 @@ class UploadimgViewModel(application: Application) : EastViewModel<UploadImgData
     var imageType : Int = 0;
     var imageWidth : Int = 0;
     var imageHeight : Int = 0;
-    var imageSize : Int = ImageInfo.DEFATUL_IMAGE_SIZE;
+    var imageSize : Int = ImageData.IMAGE_SIZE_DEFAULT;
 
     override fun initData(): UploadImgData = UploadImgData();
 
     override fun initModel() {
         super.initModel()
+    }
+
+
+    fun imageFile(filePath:String){
+        var file = File(filePath);
+        imageFile.value = file;
     }
 
 
@@ -40,7 +50,7 @@ class UploadimgViewModel(application: Application) : EastViewModel<UploadImgData
         imageHeight : Int = 0,
         apptype : Int = 0,
         imagetype : Int = 0,
-        imageSize : Int = ImageInfo.DEFATUL_IMAGE_SIZE
+        imageSize : Int = ImageData.IMAGE_SIZE_DEFAULT
     ) {
         haveIcon.value = iconFlag;
         isLoading.value = loadingFlag;

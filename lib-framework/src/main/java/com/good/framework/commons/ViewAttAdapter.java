@@ -19,13 +19,18 @@ public class ViewAttAdapter {
         if(file == null)
             return;
         if (view.getId() == R.id.iv_imageview) {
-            Log.d(TAG,file.getPath());
-            Log.d(TAG,file.length()+"");
             Glide.with(view)
                     .load(file)
                     .apply(new RequestOptions()
                     .placeholder(R.drawable.icon_full_screen_nodata_img)
                     .error(R.drawable.icon_full_screen_nodata_img))
+                    .into(view);
+        }else if(view.getId() == R.id.iv_image){
+            Glide.with(view)
+                    .load(file)
+                    .apply(new RequestOptions()
+                            .placeholder(R.drawable.ic_upload_image_default)
+                            .error(R.drawable.ic_upload_image_default))
                     .into(view);
         }
     }

@@ -84,6 +84,16 @@ fun String.isEmail() : Boolean{
     return m.matches();
 }
 
+fun String.isNotNullOrEmpty():Boolean{
+    if(this == null)
+        return false;
+    if(this.isEmpty()){
+        return false;
+    }
+    return true;
+}
+
+
 
 
 /**

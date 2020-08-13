@@ -1,16 +1,17 @@
 package com.god.uikit.utils
 
 import android.app.Activity
+import android.graphics.Point
+import android.util.Log
+import android.view.Display
 import androidx.fragment.app.Fragment
 import com.god.uikit.R
 import com.god.uikit.commons.Constants
 import com.god.uikit.commons.Glide4Engine
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
-import com.zhihu.matisse.SelectionCreator
 import com.zhihu.matisse.internal.entity.CaptureStrategy
-import java.lang.NullPointerException
-import kotlin.math.min
+
 
 fun toAlubm(
     activity:Activity? = null,
@@ -46,5 +47,13 @@ fun toAlubm(
             //请求码
         selectionCreator.forResult(Constants.REQEUST_CODE_ALBUM);
     }
+}
+
+fun screenSize(activity: Activity):Array<Int>{
+    val display: Display = activity.getWindowManager().getDefaultDisplay()
+    val point = Point()
+    display.getSize(point)
+    Log.d("SCREEN_SIZE=>","${point.x} X ${point.y}")
+    return arrayOf(point.x,point.y)
 }
 

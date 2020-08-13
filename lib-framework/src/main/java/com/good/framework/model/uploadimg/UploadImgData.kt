@@ -1,9 +1,9 @@
 package com.good.framework.model.uploadimg
 
 import com.good.framework.entity.VMData
+import java.io.Serializable
 
 class UploadImgData :VMData(){
-
     enum class ImageType(private val type: Int){
         TYPE_ERROR(0),
         TYPE_SPLASH(0x01),
@@ -59,5 +59,9 @@ class UploadImgData :VMData(){
         const val FILE_PATH_KEY : String = "life_file_key";
         const val IMAGE_CUTWIDTH_KEY : String = "cut_width_key";
         const val IMAGE_CUTHEIGHT_KEY : String = "cut_height_key";
+        const val UPLOADIMG_DATA_KEY : String = "uploadimg_data_key";
+        const val PROVINDER_KEY : String = "uploadimg_provinder_key";
+        const val ROOT_PAHT_KEY : String = "uploadimg_root_paht_key";
+        const val CHILD_PATH_KEY : String = "uploadimg_child_path_key";
     }
 }

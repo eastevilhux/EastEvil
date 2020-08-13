@@ -10,6 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".commons.TestApp">
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.hux.demo"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <!-- 元数据 -->
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
+
         <activity android:name=".model.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,6 +31,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <activity android:name="com.good.framework.model.uploadimg.UploadimgActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name="com.good.framework.model.camera.CameraActivity"/>
+        <activity android:name="com.good.framework.model.camera.ImageActivity"/>
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 
 </manifest>

@@ -19,6 +19,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.god.uikit.utils.ViewUtil
+import com.god.uikit.utils.screenSize
 import com.god.uikit.widget.LoadingDialog
 import com.god.uikit.widget.ViewToast
 import com.good.framework.R
@@ -26,10 +27,13 @@ import com.good.framework.commons.BaseActivity
 import com.good.framework.databinding.CameraActivityBinding
 import com.good.framework.entity.VMData
 import com.good.framework.model.uploadimg.UploadImgData
+import com.good.framework.model.uploadimg.UploadImgData.Companion.CHILD_PATH_KEY
 import com.good.framework.model.uploadimg.UploadImgData.Companion.IMAGE_CUTHEIGHT_KEY
 import com.good.framework.model.uploadimg.UploadImgData.Companion.IMAGE_CUTWIDTH_KEY
 import com.good.framework.model.uploadimg.UploadImgData.Companion.IMAGE_HEIGHT_KEY
 import com.good.framework.model.uploadimg.UploadImgData.Companion.IMAGE_WIDTH_KEY
+import com.good.framework.model.uploadimg.UploadImgData.Companion.PROVINDER_KEY
+import com.good.framework.model.uploadimg.UploadImgData.Companion.ROOT_PAHT_KEY
 import java.util.*
 
 
@@ -44,7 +48,6 @@ class CameraActivity : BaseActivity<CameraActivityBinding, CameraViewModel>(){
         ORIENTATIONS.append(Surface.ROTATION_180, 270)
         ORIENTATIONS.append(Surface.ROTATION_270, 180)
     }
-
 
     private var mSurfaceHolder: SurfaceHolder? = null
     private var mCameraManager : CameraManager? = null//摄像头管理器
@@ -61,6 +64,7 @@ class CameraActivity : BaseActivity<CameraActivityBinding, CameraViewModel>(){
     private var cameraHeight :Int = 0;
     private var cutWidth:Int = 0;
     private var cutHeight :Int = 0;
+    private var provider:String? = null;
 
     override fun getLayoutRes(): Int = R.layout.camera_activity;
 
@@ -73,9 +77,14 @@ class CameraActivity : BaseActivity<CameraActivityBinding, CameraViewModel>(){
         cameraHeight = intent?.getIntExtra(IMAGE_HEIGHT_KEY,0)?:0;
         cutWidth = intent?.getIntExtra(IMAGE_CUTWIDTH_KEY,0)?:0;
         cutHeight = intent?.getIntExtra(IMAGE_CUTHEIGHT_KEY,0)?:0;
+        provider = intent?.getStringExtra(PROVINDER_KEY);
+        var rootPath = intent?.getStringExtra(ROOT_PAHT_KEY);
+        var childPath = intent?.getStringExtra(CHILD_PATH_KEY);
+        viewModel?.rootPath = rootPath;
+        viewModel?.childPath = childPath;
 
         if(cameraWidth == 0 || cameraHeight == 0){
-            var size = ViewUtil.getScreenSize(this);
+            var size = screenSize(this);
             if(cameraWidth == 0){
                 cameraWidth = size[0];
             }
@@ -283,6 +292,9 @@ class CameraActivity : BaseActivity<CameraActivityBinding, CameraViewModel>(){
                     intent.putExtra(UploadImgData.FILE_PATH_KEY,it);
                     intent.putExtra(IMAGE_CUTWIDTH_KEY,cutWidth);
                     intent.putExtra(IMAGE_CUTHEIGHT_KEY,cutHeight);
+                    intent.putExtra(PROVINDER_KEY,provider);
+                    intent.putExtra(ROOT_PAHT_KEY,viewModel?.rootPath);
+                    intent.putExtra(CHILD_PATH_KEY,viewModel?.childPath);
                     startActivity(intent)
                     finish();
                     mCameraDevice?.close();

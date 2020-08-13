@@ -10,6 +10,7 @@ import com.god.uikit.commons.Constants.Companion.REQEUST_CODE_ALBUM
 import com.god.uikit.commons.Constants.Companion.REQUEST_CODE_CUTTING
 import com.god.uikit.entity.Item
 import com.god.uikit.presenter.MenuPresenter
+import com.god.uikit.utils.isEmpty
 import com.god.uikit.widget.LoadingDialog
 import com.god.uikit.widget.window.RightMenuPopupWindow
 import com.good.framework.R
@@ -21,6 +22,12 @@ import com.good.framework.model.camera.CameraData.Companion.RESULT_CODE_CUTTING
 import com.good.framework.model.camera.CameraData.Companion.RESULT_CODE_SETRESULT
 import com.good.framework.model.camera.CameraData.Companion.RESULT_CODE_SHOWIMG
 import com.good.framework.model.uploadimg.UploadImgData
+import com.good.framework.model.uploadimg.UploadImgData.Companion.CHILD_PATH_KEY
+import com.good.framework.model.uploadimg.UploadImgData.Companion.PROVINDER_KEY
+import com.good.framework.model.uploadimg.UploadImgData.Companion.ROOT_PAHT_KEY
+import com.good.framework.model.uploadimg.UploadimgActivity
+import com.yalantis.ucrop.UCropActivity
+import freemarker.template.utility.StringUtil
 
 class ImageActivity : BaseActivity<ImageActivityBinding, ImageViewModel>(), MenuPresenter {
 
@@ -29,6 +36,7 @@ class ImageActivity : BaseActivity<ImageActivityBinding, ImageViewModel>(), Menu
     }
 
     private var menuPopup: RightMenuPopupWindow? = null;
+    private var provider : String? = null;
 
     override fun getLayoutRes(): Int = R.layout.image_activity;
 
@@ -38,30 +46,34 @@ class ImageActivity : BaseActivity<ImageActivityBinding, ImageViewModel>(), Menu
         dataBinding?.viewModel = viewModel;
         dataBinding?.titleShowimage!!.onTitleListener = this;
         intent?.getStringExtra(UploadImgData.FILE_PATH_KEY)?.let { viewModel?.initFile(it) }
+        provider = intent?.getStringExtra(PROVINDER_KEY);
+        var rootPath = intent?.getStringExtra(ROOT_PAHT_KEY);
+        var childPath = intent?.getStringExtra(CHILD_PATH_KEY);
+        viewModel?.rootPath = rootPath;
+        viewModel?.childPath = childPath;
         menuPopup = RightMenuPopupWindow(this,this,R.string.menu_urcop,R.string.menu_finish)
     }
 
-    override fun needLoadingInit(): Boolean {
-        return true;
-    }
 
     override fun vmDataChange(data: VMData) {
         super.vmDataChange(data)
         var imageData : CameraData = data as CameraData;
         if(data.code == VMData.Code.CODE_SUCCESS){
-            viewModel?.showLoading();
             when(data.requestCode){
                 RESULT_CODE_SHOWIMG->{
 
                 }
                 RESULT_CODE_CUTTING->{
+                    if(provider == null || provider?.isEmpty() == true){
+                        throw IllegalAccessException("nuknow the provinder");
+                    }
                     cuttingImage(this,sourceFilePath = imageData.sourcePath!!,outFilePaht = imageData.outPath!!
-                        ,provider = "com.life.manager")
+                        ,provider = provider!!)
                 }
                 RESULT_CODE_SETRESULT->{
-                    var intent = Intent();
+                    var intent = Intent(this,UploadimgActivity::class.java);
                     intent.putExtra(UploadImgData.FILE_PATH_KEY,imageData.outPath);
-                    setResult(Constants.RESULT_COED_CAMERA,intent)
+                    startActivity(intent)
                     finish();
                 }
             }
@@ -93,5 +105,9 @@ class ImageActivity : BaseActivity<ImageActivityBinding, ImageViewModel>(), Menu
 
             }
         }
+    }
+
+    override fun needLoadingInit(): Boolean {
+        return false;
     }
 }

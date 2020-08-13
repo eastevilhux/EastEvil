@@ -37,19 +37,20 @@
             app:layout_constraintTop_toBottomOf="@id/title_uploadimg"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/icon_no_data_default"
             android:layout_marginTop="@dimen/dp_30"
             android:visibility="@{viewModel.haveIcon ? View.VISIBLE : View.GONE}"
             android:onClick="@{uploadac.viewClick}"/>
 
         <ImageView
             android:id="@+id/iv_image"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/iv_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_upload_image_default"
+            android:src="@{viewModel.imageFile}"
             android:layout_marginTop="@dimen/dp_10"
             android:visibility="@{viewModel.haveImage ? View.VISIBLE : View.GONE}"
             android:onClick="@{uploadac.viewClick}"/>

@@ -3,6 +3,7 @@ package com.good.framework.model.camera
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.god.uikit.utils.isNotNullOrEmpty
 import com.good.framework.commons.EastViewModel
 import com.good.framework.commons.mainThread
 import com.good.framework.entity.VMData
@@ -19,8 +20,10 @@ class ImageViewModel(application: Application) : EastViewModel<CameraData>(appli
     }
 
     val file = MutableLiveData<File>();
-
     var cutFile : File? = null;
+
+    var rootPath : String? = null;
+    var childPath : String? = null;
 
     override fun initData(): CameraData = CameraData();
 
@@ -47,7 +50,24 @@ class ImageViewModel(application: Application) : EastViewModel<CameraData>(appli
 
     fun cuttingImage(){
         var sourcePath = file.value?.path;
-        var outPath = "${FileUtil.getDiskPath()}/lifemanager/event/cutting"
+        var outPath = "${FileUtil.getDiskPath()}/"
+        //lifemanager/event/cutting
+        if(rootPath == null){
+            outPath = "${outPath}/eastevil"
+        }else{
+            if(rootPath!!.isNotNullOrEmpty()){
+                outPath = "${outPath}/${rootPath}"
+            }
+        }
+        if(childPath == null){
+            outPath = "${outPath}/evimgs/cutting"
+        }else{
+            if(childPath!!.isNotNullOrEmpty()){
+                outPath = "${outPath}/${childPath}/cutting"
+            }else{
+                outPath = "${outPath}/evimgs/cutting"
+            }
+        }
         FileUtil.createDirectory(outPath);
         outPath = "${outPath}/${FileUtil.createTempFileName()}"
         cutFile = FileUtil.createFile(outPath);

@@ -2,6 +2,8 @@ package com.good.framework.model.camera
 
 import android.app.Application
 import android.media.Image
+import com.god.uikit.utils.isEmail
+import com.god.uikit.utils.isNotNullOrEmpty
 import com.good.framework.R
 import com.good.framework.commons.EastViewModel
 import com.good.framework.commons.mainThread
@@ -17,10 +19,14 @@ import java.nio.ByteBuffer
 class CameraViewModel(application: Application) : EastViewModel<CameraData>(application) {
     var filePath : String? = null;
 
+    var rootPath:String? = null;
+    var childPath : String? = null;
+
     override fun initData(): CameraData = CameraData();
 
 
     fun saveImage(image:Image){
+        showLoading()
         writeImage(image);
     }
 
@@ -33,7 +39,24 @@ class CameraViewModel(application: Application) : EastViewModel<CameraData>(appl
             var basePath = FileUtil.getDiskPath();
             basePath?.let {
                 var fileName = FileUtil.createTempFileName();
-                filePath = "${basePath}/lifemanager/event";
+                if(rootPath == null){
+                    filePath = "${basePath}/eastevil";
+                }else{
+                    if(rootPath!!.isNotNullOrEmpty()){
+                        filePath = "${basePath}/${rootPath}";
+                    }else{
+                        filePath = "${basePath}/eastevil";
+                    }
+                }
+                if(childPath == null){
+                    filePath = "${filePath}/evimgs"
+                }else{
+                    if(childPath!!.isNotNullOrEmpty()){
+                        filePath = "${filePath}/${childPath}"
+                    }else{
+                        filePath = "${filePath}/evimgs"
+                    }
+                }
                 FileUtil.createDirectory(filePath);
                 filePath = "${filePath}/${fileName}";
                 var file = FileUtil.createFile(filePath);
@@ -44,6 +67,7 @@ class CameraViewModel(application: Application) : EastViewModel<CameraData>(appl
                 bufferedOutputStream.close();
                 os.close();
                 filePath = file?.path;
+                dismissLoading()
                 mainThread {
                     vmData.value!!.code = VMData.Code.CODE_SUCCESS
                     postVMData(vmData.value!!);
