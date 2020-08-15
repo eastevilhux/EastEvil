@@ -30,6 +30,7 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>() {
                 data.imageHeight = 120;
                 data.imageType = UploadImgData.ImageType.TYPE_SPLASH;
                 data.appType = UploadImgData.AppType.APP_LIFEHOUSE;
+                data.imageListFlag = true;
                 data.rootPath = "what";
                 data.childPath = "fuck";
                 toUploadImage(this,data,"com.hux.demo");

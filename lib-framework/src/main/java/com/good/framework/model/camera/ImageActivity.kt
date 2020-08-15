@@ -102,7 +102,7 @@ class ImageActivity : BaseActivity<ImageActivityBinding, ImageViewModel>(), Menu
                 viewModel?.cuttingImage();
             }
             1->{
-
+                viewModel?.finishImage();
             }
         }
     }

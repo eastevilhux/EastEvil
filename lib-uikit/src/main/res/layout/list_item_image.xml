@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="com.god.uikit.entity.Image"/>
+        <import type="android.view.View"/>
+        <variable
+            name="presenter"
+            type="com.god.uikit.presenter.ImagePresenter" />
+        <variable
+            name="item"
+            type="com.god.uikit.entity.Image" />
+        <variable
+            name="pos"
+            type="Integer" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/colorWhite"
+        android:onClick="@{() -> presenter.onImage(item,pos)}">
+
+        <ImageView
+            android:id="@+id/iv_img_file"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{item.type == Image.Type.TYPE_FILE ? View.VISIBLE : View.GONE}"
+            android:src="@{item.file}"/>
+
+
+        <ImageView
+            android:id="@+id/iv_url"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{item.type == Image.Type.TYPE_URL ? View.VISIBLE : View.GONE}"
+            android:src="@{item.url}"/>
+
+        <ImageView
+            android:id="@+id/iv_resource"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{item.type == Image.Type.TYPE_RESOURCE ? View.VISIBLE : View.GONE}"
+            android:src="@{item.resource}"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite"
+            android:visibility="@{item.type == Image.Type.TYPE_DEFAULT ? View.VISIBLE : View.GONE}"/>
+    </LinearLayout>
+
+</layout>

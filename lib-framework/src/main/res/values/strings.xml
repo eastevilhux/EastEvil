@@ -1,3 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="choose_not_allow">已超出选择数量</string>
 </resources>
