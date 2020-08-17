@@ -10,6 +10,10 @@
         <variable
             name="uploadac"
             type="com.good.framework.model.uploadimg.UploadimgActivity" />
+
+        <variable
+            name="adapter"
+            type="com.god.uikit.adapter.ImageAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -63,6 +67,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_image"
             android:layout_marginTop="@dimen/dp_10"
+            android:numColumns="4"
+            android:verticalSpacing="@dimen/dp_1"
+            android:horizontalSpacing="@dimen/dp_1"
+            app:adapter="@{adapter}"
             android:visibility="@{viewModel.imageSize > 0 ? View.VISIBLE : View.GONE}"/>
 
         <Button

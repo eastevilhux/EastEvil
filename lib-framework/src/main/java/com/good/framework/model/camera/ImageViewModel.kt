@@ -51,7 +51,6 @@ class ImageViewModel(application: Application) : EastViewModel<CameraData>(appli
     fun cuttingImage(){
         var sourcePath = file.value?.path;
         var outPath = "${FileUtil.getDiskPath()}/"
-        //lifemanager/event/cutting
         if(rootPath == null){
             outPath = "${outPath}/eastevil"
         }else{
@@ -91,6 +90,14 @@ class ImageViewModel(application: Application) : EastViewModel<CameraData>(appli
         vmData.value?.outPath = cutFile?.path;
         vmData.value?.let { setVMData(it) };
     }
+
+    fun finishImage(){
+        vmData.value?.code = VMData.Code.CODE_SUCCESS;
+        vmData.value?.requestCode = RESULT_CODE_SETRESULT;
+        vmData.value?.outPath = file.value?.path;
+        vmData.value?.let { setVMData(it)}
+    }
+
 
 
 }
