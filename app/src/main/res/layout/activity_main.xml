@@ -25,6 +25,24 @@
             android:text="拍照上次测试"
             android:onClick="@{mainac.onViewClick}"/>
 
+
+        <com.god.uikit.widget.SelectLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            app:isHaveIcon="false"
+            app:iconSrc="@drawable/ic_img_camera"
+            app:haveItem="true"
+            app:itemText="开始时间"
+            app:haveContent="true"
+            app:contentText="aaaaaaaaaaaaaabbbbb"
+            app:haveMenu="true"
+            app:menuText="125kg"
+            app:itemTextColor="@color/colorAccent"
+            app:contentTextColor="@color/ColorBtnNor"
+            app:menuTextColor="@color/dracula_bottom_toolbar_bg"
+            app:content_gravity="leftAndCenter_vertical"
+            app:arrow_image="@drawable/icon_arrow_down" />
+
     </LinearLayout>
 
 </layout>

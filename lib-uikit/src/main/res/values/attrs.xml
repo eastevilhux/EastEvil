@@ -199,4 +199,21 @@
         <attr name="icon_width" format="dimension"/>
         <attr name="icon_height" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="SelectLayout">
+        <attr name="isHaveIcon"/>
+        <attr name="iconSrc"/>
+        <attr name="haveMenu"/>
+        <attr name="haveItem"/>
+        <attr name="itemText"/>
+        <attr name="itemTextColor"/>
+        <attr name="menuText"/>
+        <attr name="menuTextColor"/>
+        <attr name="haveContent"/>
+        <attr name="contentText"/>
+        <attr name="contentTextColor"/>
+        <attr name="arrow_image"/>
+        <attr name="have_img_arrow" format="boolean"/>
+        <attr name="content_gravity"/>
+    </declare-styleable>
 </resources>

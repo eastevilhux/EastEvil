@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="haveItem"
+            type="androidx.databinding.ObservableField&lt;Boolean&gt;" />
+
+        <variable
+            name="haveIcon"
+            type="androidx.databinding.ObservableField&lt;Boolean&gt;" />
+
+        <variable
+            name="itemText"
+            type="androidx.databinding.ObservableField&lt;String&gt;" />
+
+        <variable
+            name="haveArrow"
+            type="androidx.databinding.ObservableField&lt;Boolean&gt;" />
+
+        <variable
+            name="haveMenu"
+            type="androidx.databinding.ObservableField&lt;Boolean&gt;" />
+
+        <variable
+            name="menuText"
+            type="androidx.databinding.ObservableField&lt;String&gt;" />
+        <variable
+            name="haveContent"
+            type="androidx.databinding.ObservableField&lt;Boolean&gt;" />
+        <variable
+            name="contentText"
+            type="androidx.databinding.ObservableField&lt;String&gt;" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/iv_iconimg"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:visibility="@{haveIcon ? View.VISIBLE : View.GONE}"/>
+
+        <TextView
+            android:id="@+id/tv_item"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="wrap_content"
+            style="@style/AppTextTheme"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@{itemText}"
+            android:gravity="left|center_vertical"
+            app:layout_constraintStart_toEndOf="@id/iv_iconimg"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:visibility="@{haveItem ? View.VISIBLE : View.GONE}"/>
+
+
+        <ImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="@dimen/arrowImgSize"
+            android:layout_height="@dimen/arrowImgSize"
+            android:src="@drawable/icon_default_arrow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginRight="@dimen/dp_10"
+            android:visibility="@{haveArrow ? View.VISIBLE : View.GONE}"/>
+
+        <TextView
+            android:id="@+id/tv_menutext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{menuText}"
+            android:visibility="@{haveMenu ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/iv_arrow"
+            app:layout_constraintStart_toEndOf="@id/tv_content"
+            style="@style/AppTextTheme"
+            android:layout_marginRight="@dimen/dp_10"/>
+
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/AppTextTheme"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_item"
+            app:layout_constraintEnd_toStartOf="@id/tv_menutext"
+            android:visibility="@{haveContent ? View.VISIBLE : View.GONE}"
+            android:text="@{contentText}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
