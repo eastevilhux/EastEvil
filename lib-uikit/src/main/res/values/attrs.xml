@@ -215,5 +215,6 @@
         <attr name="arrow_image"/>
         <attr name="have_img_arrow" format="boolean"/>
         <attr name="content_gravity"/>
+        <attr name="arrowImgSize" format="dimension"></attr>
     </declare-styleable>
 </resources>

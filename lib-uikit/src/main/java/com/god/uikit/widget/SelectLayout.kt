@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableField
 import com.god.uikit.R
 import com.god.uikit.databinding.LayoutSelectBinding
+import com.god.uikit.utils.dip2Px
 
 class SelectLayout : FrameLayout {
 
@@ -32,6 +33,7 @@ class SelectLayout : FrameLayout {
     private var itemTextColor : Int = Color.rgb(55,55,55);
     private var contentTextColor : Int = Color.rgb(55,55,55);
     private var menuTextColor : Int = Color.rgb(55,55,55);
+    private var arrowImgSize : Int = 35.dip2Px();
 
     lateinit var tempBd : Drawable;
     var arrowBd : Drawable? = null;
@@ -72,6 +74,10 @@ class SelectLayout : FrameLayout {
         itemTextColor = ta.getColor(R.styleable.SelectLayout_itemTextColor, Color.rgb(150,150,150));
         contentTextColor = ta.getColor(R.styleable.SelectLayout_contentTextColor, Color.rgb(55,55,55));
         menuTextColor = ta.getColor(R.styleable.SelectLayout_menuTextColor, Color.rgb(55,55,55));
+        arrowImgSize = ta.getDimensionPixelSize(R.styleable.SelectLayout_arrowImgSize,0);
+        if(arrowImgSize == 0){
+            arrowImgSize = 35.dip2Px();
+        }
 
         if(haveArrow.get() == true){
             var defArrow = BitmapDrawable(
@@ -123,6 +129,10 @@ class SelectLayout : FrameLayout {
 
         if(haveArrow.get() == true){
             dataBinding?.ivArrow!!.setImageDrawable(arrowBd);
+            var lp = dataBinding?.ivArrow!!.layoutParams;
+            lp.width = arrowImgSize;
+            lp.height = arrowImgSize;
+            dataBinding?.ivArrow!!.layoutParams = lp;
         }
         if(haveIcon.get() == true){
             dataBinding?.ivIconimg!!.setImageDrawable(iconBd);

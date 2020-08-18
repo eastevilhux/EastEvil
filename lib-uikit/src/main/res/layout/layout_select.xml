@@ -68,6 +68,7 @@
             android:id="@+id/iv_arrow"
             android:layout_width="@dimen/arrowImgSize"
             android:layout_height="@dimen/arrowImgSize"
+            android:padding="@dimen/dp_10"
             android:src="@drawable/icon_default_arrow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
