@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/tv_licenseplate_info"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginLeft="@dimen/dp_10"
+            app:layout_constraintStart_toStartOf="parent"
+            style="@style/AppTextTheme"
+            android:gravity="left|center_vertical"
+            android:textColor="@color/colorInfo"
+            android:text="@string/license_plate"/>
+
+        <TextView
+            android:id="@+id/tv_abbreviation"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_licenseplate_info"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:gravity="left|center_vertical"/>
+
+
+        <TextView
+            android:id="@+id/tv_letter"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_abbreviation"
+            android:layout_marginLeft="@dimen/dp_5"/>
+
+
+        <EditText
+            android:id="@+id/et_licensenum"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_letter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            style="@style/AppEdithTheme"
+            android:hint="@string/hint_lincese_number"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

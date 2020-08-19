@@ -43,6 +43,13 @@
             app:content_gravity="leftAndCenter_vertical"
             app:arrow_image="@drawable/icon_arrow_down" />
 
+
+        <com.good.framework.widget.LicenseplateView
+            android:id="@+id/lv_licenseplate"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:background="@color/colorWhite" />
+
     </LinearLayout>
 
 </layout>

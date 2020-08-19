@@ -2,6 +2,7 @@ package com.good.framework.http.service
 
 import com.good.framework.entity.KeySet
 import com.good.framework.entity.Staff
+import com.good.framework.http.entity.City
 import com.good.framework.http.entity.Event
 import com.good.framework.http.entity.Result
 import retrofit2.http.*
@@ -13,6 +14,7 @@ interface BaseService {
             get() = "http://192.168.0.100:8080/lifehouse/";
     }
 
+    fun provinceList() : Result<List<City>>;
 
     @POST("life/appbeforehand")
     fun appBeforehand(): Result<KeySet>;

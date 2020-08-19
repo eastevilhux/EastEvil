@@ -27,7 +27,6 @@ import com.good.framework.model.uploadimg.UploadImgData.Companion.PROVINDER_KEY
 import com.good.framework.model.uploadimg.UploadImgData.Companion.ROOT_PAHT_KEY
 import com.good.framework.model.uploadimg.UploadimgActivity
 import com.yalantis.ucrop.UCropActivity
-import freemarker.template.utility.StringUtil
 
 class ImageActivity : BaseActivity<ImageActivityBinding, ImageViewModel>(), MenuPresenter {
 

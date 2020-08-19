@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LicenseplateView">
+        <attr name="abbreviationBackground" format="reference"/>
+        <attr name="letterBackground" format="reference"/>
+    </declare-styleable>
+</resources>
