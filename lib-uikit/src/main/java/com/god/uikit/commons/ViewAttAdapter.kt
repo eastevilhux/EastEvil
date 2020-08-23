@@ -24,7 +24,7 @@ class ViewAttAdapter {
 
         @JvmStatic
         @BindingAdapter("android:src")
-        fun setUikitImage(imageView: ImageView,file:File?){
+        fun setImage(imageView: ImageView,file:File?){
             Log.d(TAG,"WTF");
             when(imageView.id){
                 R.id.iv_img_file->{
@@ -44,7 +44,7 @@ class ViewAttAdapter {
 
         @JvmStatic
         @BindingAdapter("android:src")
-        fun setUikitImage(imageView: ImageView?,url:String?){
+        fun setImage(imageView: ImageView?,url:String?){
             when(imageView?.id){
                 R.id.iv_url->{
                     Glide.with(imageView)
@@ -60,7 +60,7 @@ class ViewAttAdapter {
 
         @JvmStatic
         @BindingAdapter("android:src")
-        fun setUikitImage(imageView: ImageView?,resource:Int?){
+        fun setImage(imageView: ImageView?,resource:Int?){
             when(imageView?.id){
                 R.id.iv_resource->{
                     Glide.with(imageView)
