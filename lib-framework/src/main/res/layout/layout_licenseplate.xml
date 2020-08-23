@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="liceseplateView"
+            type="com.good.framework.widget.LicenseplateView" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -28,7 +34,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_licenseplate_info"
             android:layout_marginLeft="@dimen/dp_10"
-            android:gravity="left|center_vertical"/>
+            style="@style/AppTextTheme"
+            android:onClick="@{liceseplateView.onViewClick}"/>
 
 
         <TextView
@@ -38,7 +45,9 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_abbreviation"
-            android:layout_marginLeft="@dimen/dp_5"/>
+            android:layout_marginLeft="@dimen/dp_5"
+            style="@style/AppTextTheme"
+            android:onClick="@{liceseplateView.onViewClick}"/>
 
 
         <EditText

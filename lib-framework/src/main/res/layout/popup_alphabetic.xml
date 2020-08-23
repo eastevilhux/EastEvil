@@ -5,7 +5,7 @@
     <data>
         <variable
             name="adapter"
-            type="com.good.framework.adapter.LicensePlateAdapter" />
+            type="com.good.framework.adapter.AlphabeticAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +16,7 @@
             android:id="@+id/gb_abbreviation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:numColumns="8"
+            android:numColumns="6"
             android:horizontalSpacing="@dimen/dp_1"
             android:verticalSpacing="@dimen/dp_1"
             app:adapter="@{adapter}"/>

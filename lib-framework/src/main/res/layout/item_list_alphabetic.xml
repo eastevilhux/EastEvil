@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="alphabetic"
+            type="String" />
+
+        <variable
+            name="presenter"
+            type="com.good.framework.presenter.AlphabeticListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:onClick="@{() -> presenter.onAlphabetic(alphabetic)}">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/AppTextTheme"
+            android:text="@{alphabetic}"/>
+
+    </LinearLayout>
+
+</layout>

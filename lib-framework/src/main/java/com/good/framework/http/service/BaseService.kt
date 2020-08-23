@@ -4,6 +4,7 @@ import com.good.framework.entity.KeySet
 import com.good.framework.entity.Staff
 import com.good.framework.http.entity.City
 import com.good.framework.http.entity.Event
+import com.good.framework.http.entity.LicensePlate
 import com.good.framework.http.entity.Result
 import retrofit2.http.*
 
@@ -53,4 +54,7 @@ interface BaseService {
 
     @GET("event/appsplashevents")
     fun splashEventList(@Field("status") status : Int = 0) : Result<Event>;
+
+    @POST("life/licenseplate")
+    fun licensePlate() : Result<MutableList<LicensePlate>>;
 }

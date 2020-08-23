@@ -10,6 +10,7 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".model.main.MainActivity"
@@ -48,7 +49,8 @@
             android:id="@+id/lv_licenseplate"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_40"
-            android:background="@color/colorWhite" />
+            android:background="@color/colorWhite"
+            android:onClick="@{mainac.onViewClick}"/>
 
     </LinearLayout>
 

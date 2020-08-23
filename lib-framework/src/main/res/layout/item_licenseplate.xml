@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="licensePlate"
+            type="com.good.framework.http.entity.LicensePlate" />
+
+        <variable
+            name="presenter"
+            type="com.good.framework.presenter.LicensePresenter" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:onClick="@{() -> presenter.onItemClick(licensePlate)}">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/AppTextTheme"
+            android:text="@{licensePlate.abbreviation}"/>
+
+    </LinearLayout>
+
+</layout>

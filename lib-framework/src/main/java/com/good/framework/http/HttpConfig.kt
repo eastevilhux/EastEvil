@@ -23,10 +23,10 @@ class HttpConfig private constructor(){
         const val MAX_AGE = 60
 
         //请求服务器地址URL
-        var SERVICE_URL = "http://192.168.0.151:8080/lifehousems/"
+        var SERVICE_URL = "http://192.168.0.101:8080/lifehousems/"
 
         //请求Token地址URL
-        var TOKEN_URL = "http://192.168.0.151:8080/token"
+        var TOKEN_URL = "http://192.168.0.101:8080/token"
 
         fun init(url:String,tokenUrl:String,charset:String = "UTF-8"){
             SERVICE_URL = url;
