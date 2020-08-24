@@ -1,5 +1,6 @@
 package com.hux.demo.model.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -7,6 +8,7 @@ import androidx.lifecycle.Observer
 import com.god.uikit.utils.screenSize
 import com.good.framework.db.LicensePlateDao
 import com.good.framework.entity.ImageData
+import com.good.framework.model.city.CitylistActivity
 import com.good.framework.model.uploadimg.UploadImgData
 import com.good.framework.utils.Test
 import com.good.framework.utils.toUploadImage
@@ -47,6 +49,10 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>() {
                 data.rootPath = "what";
                 data.childPath = "fuck";
                 toUploadImage(this,data,"com.hux.demo");
+            }
+            R.id.iv_text_image->{
+                var intent = Intent(this,CitylistActivity::class.java);
+                startActivityForResult(intent,1);
             }
         }
     }

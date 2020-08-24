@@ -66,6 +66,8 @@ abstract class EastViewModel<T:VMData?>(application: Application) : BaseViewMode
         }
     }
 
+    open abstract fun initData() : T;
+
     open fun error(code : Int,msg : String? = getString(R.string.error_unknow)){
         mainThread {
             var er = error.value?:Error();
@@ -99,8 +101,6 @@ abstract class EastViewModel<T:VMData?>(application: Application) : BaseViewMode
             error.value = er;
         }
     }
-
-    open abstract fun initData() : T;
 
 
     override fun onDestroy(owner: LifecycleOwner?) {

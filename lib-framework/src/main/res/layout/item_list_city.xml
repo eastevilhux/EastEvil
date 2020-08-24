@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="city"
+            type="com.good.framework.http.entity.City" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_cityname"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/AppTextTheme"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/dp_10"
+            android:text="@{city.name}"/>
+
+    </LinearLayout>
+
+</layout>

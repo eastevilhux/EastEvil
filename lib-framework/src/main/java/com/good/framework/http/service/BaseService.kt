@@ -15,8 +15,6 @@ interface BaseService {
             get() = "http://192.168.0.100:8080/lifehouse/";
     }
 
-    fun provinceList() : Result<List<City>>;
-
     @POST("life/appbeforehand")
     fun appBeforehand(): Result<KeySet>;
 
@@ -57,4 +55,12 @@ interface BaseService {
 
     @POST("life/licenseplate")
     fun licensePlate() : Result<MutableList<LicensePlate>>;
+
+    @POST("life/provinces")
+    fun provinceList() : Result<MutableList<City>>;
+
+    @JvmSuppressWildcards
+    @FormUrlEncoded
+    @POST("life/childcitylist")
+    fun childCityList(@Field("pcode") pcode:Int,@Field("type") type:Int);
 }
