@@ -86,6 +86,9 @@ class AbbreviationPopupWindow(context: Context)  : PopupWindow(),LicensePresente
             if(result.isSuccess){
                 //组合简介下字母列表
                 result.data?.let { showLicensePlate(it) };
+                lpDao?.let {
+                    it.saveInTx(result.data);
+                }
             }else{
                 activity?.showToastShort(result.msg?:"service error");
             }
