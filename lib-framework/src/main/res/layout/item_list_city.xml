@@ -5,12 +5,16 @@
         <variable
             name="city"
             type="com.good.framework.http.entity.City" />
+        <variable
+            name="presenter"
+            type="com.good.framework.presenter.CityPresenter" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:onClick="@{() -> presenter.onCity(city)}">
 
         <TextView
             android:id="@+id/tv_cityname"

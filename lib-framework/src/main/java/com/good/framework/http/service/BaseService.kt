@@ -62,5 +62,5 @@ interface BaseService {
     @JvmSuppressWildcards
     @FormUrlEncoded
     @POST("life/childcitylist")
-    fun childCityList(@Field("pcode") pcode:Int,@Field("type") type:Int);
+    fun childCityList(@Field("pcode") pcode:Int,@Field("type") type:Int) : Result<MutableList<City>>;
 }

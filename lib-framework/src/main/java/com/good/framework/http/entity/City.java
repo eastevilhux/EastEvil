@@ -80,7 +80,5 @@ public class City implements Serializable {
 	public void setDbkey(Long dbkey) {
 		this.dbkey = dbkey;
 	}
-    
-    
-	
+
 }

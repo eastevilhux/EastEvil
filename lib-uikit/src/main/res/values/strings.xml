@@ -32,4 +32,5 @@
     <string name="choose_not_allow">已超出选择范围</string>
     <string name="license_plate">车牌号码</string>
     <string name="hint_lincese_number">请输入车牌号码</string>
+    <string name="please_select_city">请选择城市</string>
 </resources>

@@ -31,6 +31,8 @@ class EastCallAdapter<R>(private val type:Type) : CallAdapter<R, R>{
                 errorResponse(response);
             }
         }catch (e: Exception){
+            e.printStackTrace();
+            Log.d(TAG,e.message);
             parseException(e)
         }
     }

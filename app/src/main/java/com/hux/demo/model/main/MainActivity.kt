@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import com.god.uikit.utils.screenSize
+import com.good.framework.commons.EastConstants
 import com.good.framework.db.LicensePlateDao
 import com.good.framework.entity.ImageData
+import com.good.framework.http.entity.City
 import com.good.framework.model.city.CitylistActivity
 import com.good.framework.model.uploadimg.UploadImgData
 import com.good.framework.utils.Test
@@ -53,6 +55,21 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>() {
             R.id.iv_text_image->{
                 var intent = Intent(this,CitylistActivity::class.java);
                 startActivityForResult(intent,1);
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(resultCode){
+            EastConstants.RESULT_CODE_CITY->{
+                intent?.let {
+                    var province = data?.getSerializableExtra(EastConstants.KEY_PROVINCE) as City?;
+                    var city = data?.getSerializableExtra(EastConstants.KEY_CITY) as City?;
+                    var area = data?.getSerializableExtra(EastConstants.KEY_AREA) as City?;
+                    showToastShort(province?.name+ city?.name + area?.name);
+                    //showToastShort(province+ city+area);
+                }
             }
         }
     }

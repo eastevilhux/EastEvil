@@ -14,12 +14,17 @@
         <variable
             name="areaAdapter"
             type="com.good.framework.adapter.CityAdapter" />
+
+        <variable
+            name="viewModel"
+            type="com.good.framework.model.city.CitylistViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorMainBg">
+        android:background="@color/colorMainBg"
+        android:orientation="vertical">
 
         <com.god.uikit.widget.TitleLayout
             android:id="@+id/title_layout"
@@ -31,19 +36,36 @@
             app:menuType="menu_text"
             app:menuImage="@drawable/ic_title_menu_white"
             app:titleText="@string/title_citylist"
+            app:menuText="@string/menu_finish"
             app:iconBackType="rectangle"
             app:iconBack="@drawable/back_arrow"
             android:background="@color/ColorBtnNor" />
+
+        <TextView
+            android:id="@+id/tv_cityname"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            app:layout_constraintTop_toBottomOf="@id/title_layout"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/AppTextTheme"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/dp_10"
+            android:text="@{viewModel.cityName}"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_2"
+            android:background="@color/colorLineLight"/>
 
         <androidx.drawerlayout.widget.DrawerLayout
             android:id="@+id/main_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/title_layout"
+            app:layout_constraintTop_toBottomOf="@id/tv_cityname"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:paddingTop="@dimen/dp_40">
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <ListView
                 android:id="@+id/city_content"
@@ -92,6 +114,8 @@
 
         </androidx.drawerlayout.widget.DrawerLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
 
 </layout>
