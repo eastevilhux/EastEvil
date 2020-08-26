@@ -63,7 +63,7 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>() {
         super.onActivityResult(requestCode, resultCode, data)
         when(resultCode){
             EastConstants.RESULT_CODE_CITY->{
-                intent?.let {
+                data?.let {
                     var province = data?.getSerializableExtra(EastConstants.KEY_PROVINCE) as City?;
                     var city = data?.getSerializableExtra(EastConstants.KEY_CITY) as City?;
                     var area = data?.getSerializableExtra(EastConstants.KEY_AREA) as City?;

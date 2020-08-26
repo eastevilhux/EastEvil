@@ -90,9 +90,10 @@ class CitylistActivity : BaseActivity<ActivityCitylistBinding, CitylistViewModel
     override fun onMenu() {
         super.onMenu()
         var intent = Intent();
-        var p = viewModel?.province?.value;
-        var c = viewModel?.city?.value;
-        var a = viewModel?.area?.value;
-        Fuck.fuck(this,p,c,a);
+        intent.putExtra(EastConstants.KEY_PROVINCE, viewModel?.province?.value);
+        intent.putExtra(EastConstants.KEY_CITY, viewModel?.city?.value);
+        intent.putExtra(EastConstants.KEY_AREA, viewModel?.area?.value);
+        setResult(EastConstants.RESULT_CODE_CITY,intent);
+        finish();
     }
 }
