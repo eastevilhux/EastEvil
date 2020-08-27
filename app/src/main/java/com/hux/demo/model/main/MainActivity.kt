@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import com.god.uikit.utils.screenSize
+import com.god.uikit.widget.dialog.CalendarDialog
 import com.good.framework.commons.EastConstants
 import com.good.framework.db.LicensePlateDao
 import com.good.framework.entity.ImageData
@@ -20,6 +21,8 @@ import com.hux.demo.commons.TestApp
 import com.hux.demo.databinding.ActivityMainBinding
 
 class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>() {
+
+    var calendarDialog : CalendarDialog? = null;
 
     override fun getLayoutRes(): Int = R.layout.activity_main;
 
@@ -56,6 +59,14 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>() {
                 var intent = Intent(this,CitylistActivity::class.java);
                 startActivityForResult(intent,1);
             }
+            R.id.tv_calendar->{
+                calendarDialog?:let {
+                    calendarDialog = CalendarDialog.Builder(this)
+                        .haveTime(true)
+                        .builder()
+                }
+                calendarDialog!!.show();
+            }
         }
     }
 
@@ -73,4 +84,9 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>() {
             }
         }
     }
+
+
+
+
+
 }

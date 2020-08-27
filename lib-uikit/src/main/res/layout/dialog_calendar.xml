@@ -2,18 +2,91 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="title"
+            type="androidx.databinding.ObservableField&lt;String&gt;" />
+        <variable
+            name="date"
+            type="androidx.databinding.ObservableField&lt;String&gt;" />
+        <variable
+            name="time"
+            type="androidx.databinding.ObservableField&lt;String&gt;" />
+
+        <variable
+            name="week"
+            type="androidx.databinding.ObservableField&lt;String&gt;" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_calendar_dialog_border">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/title_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_70"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/bg_calendar_title"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_vertical|left"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginLeft="@dimen/dp_10">
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_20"
+                    style="@style/AppTextTheme"
+                    android:text="@{date}"
+                    android:textColor="@color/colorWhite" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/AppTextTheme"
+                    android:text="@{time}"
+                    android:textColor="@color/colorWhite"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginRight="@dimen/dp_10"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/sp_20"
+                android:text="@{week}"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <GridView
             android:id="@+id/date_gridview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:numColumns="7"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_layout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

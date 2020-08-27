@@ -1,6 +1,7 @@
 package com.god.uikit.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class DateTime implements Serializable {
 
@@ -27,6 +28,8 @@ public class DateTime implements Serializable {
     private int week;
 
     private int type;
+
+    private int status;
 
     public int getYear() {
         return year;
@@ -74,5 +77,50 @@ public class DateTime implements Serializable {
 
     public void setSecond(int second) {
         this.second = second;
+    }
+
+    public int getWeek() {
+        return week;
+    }
+
+    public void setWeek(int week) {
+        this.week = week;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DateTime dateTime = (DateTime) o;
+        return year == dateTime.year &&
+                month == dateTime.month &&
+                day == dateTime.day &&
+                hour == dateTime.hour &&
+                minute == dateTime.minute &&
+                second == dateTime.second &&
+                week == dateTime.week &&
+                type == dateTime.type &&
+                status == dateTime.status;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(year, month, day, hour, minute, second, week, type, status);
     }
 }

@@ -12,6 +12,13 @@ fun currentTime() : String{
     return sdf.format(Date());
 }
 
+
+fun currentTime(sdf:String) : String{
+    var sdf = SimpleDateFormat(sdf);
+    return sdf.format(Date());
+}
+
+
 fun currentDate() : Date{
     return Date();
 }
