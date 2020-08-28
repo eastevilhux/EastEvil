@@ -1,5 +1,7 @@
 package com.god.uikit.entity;
 
+import android.provider.CalendarContract;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -30,6 +32,8 @@ public class DateTime implements Serializable {
     private int type;
 
     private int status;
+
+    private String dayTime;
 
     public int getYear() {
         return year;
@@ -102,6 +106,32 @@ public class DateTime implements Serializable {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    public String getDayTime() {
+        if(type == TYPE_WEEK){
+            switch (week){
+                case 1:
+                    return "一";
+                case 2:
+                    return "二";
+                case 3:
+                    return "三";
+                case 4:
+                    return "四";
+                case 5:
+                    return "五";
+                case 6:
+                    return "六";
+                case 7:
+                    return "日";
+                default:
+                    return "WHAT??";
+            }
+        }else{
+            return String.valueOf(day);
+        }
+    }
+
 
     @Override
     public boolean equals(Object o) {

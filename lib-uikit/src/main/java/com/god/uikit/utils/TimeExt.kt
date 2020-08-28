@@ -48,10 +48,11 @@ fun currentWeek(): Int {
     val c = Calendar.getInstance()
     var week = c[Calendar.DAY_OF_WEEK];
     if(week == 1){
-        return 7;
+        week = 7;
     }else{
-        return week-1;
+        week -= 1;
     }
+    return week;
 }
 
 fun week(dateTime: String): Int {
@@ -60,10 +61,57 @@ fun week(dateTime: String): Int {
     c.time = sdf.parse(dateTime);
     var week = c[Calendar.DAY_OF_WEEK];
     if(week == 1){
-        return 7;
+        week = 7;
     }else{
-        return week-1;
+        week -= 1;
     }
+    return week;
+}
+
+fun Long.formatTime() : String{
+    var sdf = SimpleDateFormat("yyyy-MM-dd : HH:mm:ss");
+    return sdf.format(Date(this));
+}
+
+fun Long.formatTime(sdf:String) : String{
+    var sdf = SimpleDateFormat(sdf);
+    return sdf.format(Date(this));
+}
+
+fun Date.format(): String {
+    var sdf = SimpleDateFormat("yyyy-MM-dd : HH:mm:ss");
+    return sdf.format(this);
+}
+
+fun Date.format(sdf:String): String {
+    var sdf = SimpleDateFormat(sdf);
+    return sdf.format(this);
+}
+
+/**
+ * 获取指定年月第一天星期
+ */
+fun getMonthStartWeek(year: Int, month: Int): Int {
+    val calendar = Calendar.getInstance()
+    calendar[Calendar.YEAR] = year
+    calendar[Calendar.MONTH] = month - 1;
+    calendar[Calendar.DAY_OF_MONTH] = 1
+    var sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    var time = sdf.format(calendar.time);
+    return week(time);
+}
+
+/**
+ * 获取指定年月最后一天星期
+ */
+fun getMonthEndWeek(year:Int,month: Int): Int {
+    val calendar = Calendar.getInstance()
+    calendar[Calendar.YEAR] = year
+    calendar[Calendar.MONTH] = month - 1;
+    calendar[Calendar.DAY_OF_MONTH] = getDayOfMonth(year,month);
+    var sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    var time = sdf.format(calendar.time);
+    return week(time);
 }
 
 fun weekStr() : String{
@@ -75,7 +123,7 @@ fun weekStr() : String{
         4->return "星期四";
         5->return "星期五";
         6->return "星期六";
-        7->return "星期七";
+        7->return "星期日";
         else->throw IllegalAccessException("unknow week");
     }
 }
@@ -89,11 +137,23 @@ fun weekStr(dateTime: String) : String{
         4->return "星期四";
         5->return "星期五";
         6->return "星期六";
-        7->return "星期七";
+        7->return "星期日";
         else->throw IllegalAccessException("unknow week");
     }
 }
 
+/**
+ * 获取某年某月有多少天
+ * @param year
+ * @param month
+ * @return
+ */
+fun getDayOfMonth(year: Int, month: Int): Int {
+    val c = Calendar.getInstance()
+    c[year, month] = 0 //输入类型为int类型
+    return c[Calendar.DAY_OF_MONTH]
+}
+
 fun main(args: Array<String>) {
-    System.out.println(weekStr("2020-08-21 22:1:1"))
+    System.out.println(getMonthEndWeek(2020,7));
 }

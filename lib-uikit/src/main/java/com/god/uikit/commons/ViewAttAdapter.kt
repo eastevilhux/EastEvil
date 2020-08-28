@@ -18,6 +18,7 @@ class ViewAttAdapter {
         @BindingAdapter("android:text")
         fun setText(textView: TextView, text: Int) {
             when(textView.id){
+                R.id.tv_daytime->textView.setText(text.toString());
                 else->textView.setText(text);
             }
         }
