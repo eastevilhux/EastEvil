@@ -6,20 +6,32 @@
         <variable
             name="day"
             type="com.god.uikit.entity.DateTime" />
+
+        <variable
+            name="presenter"
+            type="com.god.uikit.presenter.DateTimePresenter" />
+        <variable
+            name="position"
+            type="Integer" />
+
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:background="@drawable/bg_list_item_selecter">
+        android:background="@color/colorWhite"
+        android:onClick="@{() -> presenter.onDaySelect(position,day)}">
 
         <TextView
             android:id="@+id/tv_daytime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="@dimen/dp_10"
             style="@style/AppTextTheme"
-            android:text="@{day.dayTime}"/>
+            android:text="@{day.dayTime}"
+            android:textColor="@{day.type != DateTime.TYPE_WEEK &amp;&amp; day.status == DateTime.STATE_UNUSED ? @color/colorHint : @color/colorApp}"
+            android:background="@{day.selected ? @drawable/shape_day_select : @drawable/shape_day_notselect}"/>
 
     </LinearLayout>
 

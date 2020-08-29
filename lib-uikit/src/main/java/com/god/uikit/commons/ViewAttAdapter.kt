@@ -7,7 +7,9 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.god.uikit.R
+import com.god.uikit.utils.format
 import java.io.File
+import java.util.*
 
 class ViewAttAdapter {
 
@@ -20,6 +22,16 @@ class ViewAttAdapter {
             when(textView.id){
                 R.id.tv_daytime->textView.setText(text.toString());
                 else->textView.setText(text);
+            }
+        }
+
+        @JvmStatic
+        @BindingAdapter("android:text")
+        fun setText(textView: TextView, text: Date){
+            when(textView.id){
+                R.id.tv_date->{
+                    textView.text = text.format("yyyy-MM-dd")
+                }
             }
         }
 

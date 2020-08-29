@@ -8,11 +8,14 @@ import com.god.uikit.BR
 import com.god.uikit.commons.BaseListAdapter
 import com.god.uikit.databinding.ListItemDayBinding
 import com.god.uikit.entity.DateTime
+import com.god.uikit.presenter.DateTimePresenter
 import com.god.uikit.utils.ViewUtil
 import com.god.uikit.utils.dip2Px
 
 class DayAdapter(list: MutableList<DateTime>?, context: Context?) :
     BaseListAdapter<ListItemDayBinding, DateTime>(list, context, BR.day) {
+
+    private var presenter : DateTimePresenter? = null;
 
     private var parasm : LinearLayout.LayoutParams? = null;
 
@@ -31,5 +34,15 @@ class DayAdapter(list: MutableList<DateTime>?, context: Context?) :
     override fun setViewParams(view: View?) {
         super.setViewParams(view)
         view?.layoutParams = parasm;
+    }
+
+    override fun setVariableId(dataBinding: ListItemDayBinding?, postion: Int) {
+        super.setVariableId(dataBinding, postion)
+        dataBinding?.setVariable(BR.presenter,presenter);
+        dataBinding?.setVariable(BR.position,postion);
+    }
+
+    fun setPresenter(presenter: DateTimePresenter){
+        this.presenter = presenter;
     }
 }

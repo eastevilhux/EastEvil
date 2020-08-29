@@ -155,5 +155,5 @@ fun getDayOfMonth(year: Int, month: Int): Int {
 }
 
 fun main(args: Array<String>) {
-    System.out.println(getMonthEndWeek(2020,7));
+    System.out.println(getMonthEndWeek(2020,6));
 }

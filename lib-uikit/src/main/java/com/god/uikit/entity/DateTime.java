@@ -35,6 +35,8 @@ public class DateTime implements Serializable {
 
     private String dayTime;
 
+    private boolean selected;
+
     public int getYear() {
         return year;
     }
@@ -146,11 +148,38 @@ public class DateTime implements Serializable {
                 second == dateTime.second &&
                 week == dateTime.week &&
                 type == dateTime.type &&
-                status == dateTime.status;
+                status == dateTime.status &&
+                selected == dateTime.selected;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(year, month, day, hour, minute, second, week, type, status);
+        return Objects.hash(year, month, day, hour, minute, second, week, type, status, selected);
     }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    @Override
+    public String toString() {
+        return "DateTime{" +
+                "year=" + year +
+                ", month=" + month +
+                ", day=" + day +
+                ", hour=" + hour +
+                ", minute=" + minute +
+                ", second=" + second +
+                ", week=" + week +
+                ", type=" + type +
+                ", status=" + status +
+                ", dayTime='" + dayTime + '\'' +
+                ", selected=" + selected +
+                '}';
+    }
+
 }

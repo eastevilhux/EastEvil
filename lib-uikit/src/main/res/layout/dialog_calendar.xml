@@ -3,12 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="title"
             type="androidx.databinding.ObservableField&lt;String&gt;" />
         <variable
             name="time"
             type="androidx.databinding.ObservableField&lt;String&gt;" />
+
+        <variable
+            name="date"
+            type="androidx.databinding.ObservableField&lt;java.util.Date&gt;" />
 
         <variable
             name="week"
@@ -20,6 +25,10 @@
         <variable
             name="dialog"
             type="com.god.uikit.widget.dialog.CalendarDialog" />
+
+        <variable
+            name="haveTime"
+            type="androidx.databinding.ObservableField&lt;Boolean&gt;" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,6 +63,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/sp_20"
                     style="@style/AppTextTheme"
+                    android:text="@{date}"
                     android:textColor="@color/colorWhite" />
 
                 <TextView
@@ -62,7 +72,8 @@
                     android:layout_height="wrap_content"
                     style="@style/AppTextTheme"
                     android:text="@{time}"
-                    android:textColor="@color/colorWhite"/>
+                    android:textColor="@color/colorWhite"
+                    android:visibility="@{haveTime ? View.VISIBLE : View.GONE}"/>
 
             </LinearLayout>
 
@@ -114,12 +125,27 @@
             app:layout_constraintTop_toBottomOf="@id/caltitle_layout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/time_layout"
             app:adapter="@{adapter}"
             android:scrollbars="none"
             android:overScrollMode="never"/>
 
+        <LinearLayout
+            android:id="@+id/time_layout"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_100"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/date_gridview"
+            app:layout_constraintBottom_toBottomOf="parent">
 
+            <com.contrarywind.view.WheelView
+                android:id="@+id/hour_wheelview"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
