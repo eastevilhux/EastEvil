@@ -7,6 +7,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.god.uikit.R
+import com.god.uikit.entity.Item
 import com.god.uikit.utils.format
 import java.io.File
 import java.util.*
@@ -31,6 +32,20 @@ class ViewAttAdapter {
             when(textView.id){
                 R.id.tv_date->{
                     textView.text = text.format("yyyy-MM-dd")
+                }
+            }
+        }
+
+        @JvmStatic
+        @BindingAdapter("android:text")
+        fun setText(textView: TextView, item:Item){
+            when(textView.id){
+                R.id.tv_listitems->{
+                    if(item.textType == Item.TEXT_TYPE_RESOURCE){
+                        textView.setText(item.itemResource);
+                    }else{
+                        textView.setText(item.itemText);
+                    }
                 }
             }
         }
@@ -86,6 +101,30 @@ class ViewAttAdapter {
                 else->{
                     if (resource != null) {
                         imageView?.setImageResource(resource);
+                    }
+                }
+            }
+        }
+
+        @JvmStatic
+        @BindingAdapter("android:src")
+        fun setImage(imageView: ImageView,item:Item){
+            when(imageView.id){
+                R.id.iv_listimage->{
+                    if(item.imageType == Item.IMAGE_TYPE_RESOURCE){
+                        Glide.with(imageView)
+                            .load(item.imageResource)
+                            .apply(RequestOptions()
+                                .placeholder(R.drawable.ic_upload_image_default)
+                                .error(R.drawable.ic_upload_image_default))
+                            .into(imageView);
+                    }else{
+                        Glide.with(imageView)
+                            .load(item.imageUrl)
+                            .apply(RequestOptions()
+                                .placeholder(R.drawable.ic_upload_image_default)
+                                .error(R.drawable.ic_upload_image_default))
+                            .into(imageView);
                     }
                 }
             }

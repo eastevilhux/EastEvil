@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import com.god.uikit.entity.Item
 import com.god.uikit.utils.screenSize
 import com.god.uikit.widget.dialog.CalendarDialog
+import com.god.uikit.widget.dialog.ListDialog
 import com.good.framework.commons.EastConstants
 import com.good.framework.db.LicensePlateDao
 import com.good.framework.entity.ImageData
@@ -25,6 +27,8 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
 
     var calendarDialog : CalendarDialog? = null;
 
+    var listDialog : ListDialog? = null;
+
     override fun getLayoutRes(): Int = R.layout.activity_main;
 
     override fun getVMClass(): Class<MainViewModel> = MainViewModel::class.java;
@@ -39,6 +43,20 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
         dataBinding?.lvLicenseplate!!.setView(dataBinding?.mainLayout!!);
         var dao = (application as TestApp).getDaoSession()?.licensePlateDao;
         dataBinding?.lvLicenseplate!!.setLicensePlateDao(dao);
+
+        var itemList = mutableListOf<Item>();
+        itemList.add(Item.Bulder().text("fuck1").selectType(Item.SELECT_TYEP_MORE).haveIcon(true).bulder());
+        itemList.add(Item.Bulder().text("fuck2").selectType(Item.SELECT_TYPE_DISMISS).bulder());
+        itemList.add(Item.Bulder().text("fuck3").selectType(Item.SELECT_TYEP_MORE).haveIcon(true).bulder());
+        itemList.add(Item.Bulder().text("fuck4").selectType(Item.SELECT_TYEP_MORE).select(true).bulder());
+        itemList.add(Item.Bulder().text("fuck5").selectType(Item.SELECT_TYPE_DISMISS).bulder());
+
+
+        listDialog = ListDialog.Builder(this)
+            .title("what a fuck")
+            .haveTitle(true)
+            .itemList(itemList)
+            .builder();
     }
 
     fun onViewClick(view: View){
@@ -70,6 +88,9 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
                 }
                 calendarDialog!!.show();
             }
+            R.id.tv_listdialog->{
+                listDialog!!.show();
+            }
         }
     }
 
@@ -88,8 +109,9 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
         }
     }
 
-    override fun onCalendar(dateTime: String?) {
-        showToastShort(dateTime?:"wtf");
+
+    override fun onCalendar(dateTime: String?, tag: Int) {
+        showToastShort(dateTime?:"WTF");
     }
 
 
