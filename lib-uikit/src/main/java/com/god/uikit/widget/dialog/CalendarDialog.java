@@ -74,6 +74,8 @@ public class CalendarDialog extends Dialog implements DateTimePresenter {
 
     private OnCalendarListener onCalendarListener;
 
+    private int tag;
+
     private CalendarDialog(@NonNull Context context,Builder builder) {
         super(context, R.style.DialogStyle);
         this.allowAfter = builder.allowAfter;
@@ -433,7 +435,7 @@ public class CalendarDialog extends Dialog implements DateTimePresenter {
                         }
                     }
                 }
-                onCalendarListener.onCalendar(sb.toString());
+                onCalendarListener.onCalendar(sb.toString(),tag);
             }
         }
     }
@@ -463,9 +465,17 @@ public class CalendarDialog extends Dialog implements DateTimePresenter {
         return onCalendarListener;
     }
 
+    public void setTag(int tag) {
+        this.tag = tag;
+    }
+
+    public int getTag() {
+        return tag;
+    }
+
     public interface OnCalendarListener{
 
-        void onCalendar(String dateTime);
+        void onCalendar(String dateTime,int tag);
     }
 
     public static class Builder{
