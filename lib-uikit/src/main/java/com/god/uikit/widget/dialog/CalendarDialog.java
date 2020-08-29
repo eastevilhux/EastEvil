@@ -16,6 +16,7 @@ import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.contrarywind.listener.OnItemSelectedListener;
 import com.god.uikit.R;
 import com.god.uikit.adapter.DayAdapter;
 import com.god.uikit.databinding.DialogCalendarBinding;
@@ -58,28 +59,29 @@ public class CalendarDialog extends Dialog implements DateTimePresenter {
     /**
      * 是否包含秒
      */
-    private boolean containSecond = false;
-
+    private ObservableField<Boolean> containSecond;
     private ObservableField<Date> date;
     private ObservableField<String> time;
     private ObservableField<String> week;
     private ObservableField<Boolean> haveTime;
 
     private List<DateTime> dateList;
-
     private DayAdapter dayAdapter;
-
     private boolean isNowMoth = false;
-
     private DateTime lastSelectDay;
+
+    private int hour,minute,second;
+
+    private OnCalendarListener onCalendarListener;
 
     private CalendarDialog(@NonNull Context context,Builder builder) {
         super(context, R.style.DialogStyle);
         this.allowAfter = builder.allowAfter;
         this.allowBefor = builder.allowBefor;
         this.haveTime = new ObservableField<>(builder.haveTime);
-        this.containSecond = builder.containSecond;
+        this.containSecond = new ObservableField<>(builder.containSecond);
         this.title = builder.title;
+        this.onCalendarListener = builder.onCalendarListener;
         init();
     }
 
@@ -97,7 +99,7 @@ public class CalendarDialog extends Dialog implements DateTimePresenter {
                 R.layout.dialog_calendar,null,false);
         setContentView(dataBinding.getRoot());
         if(haveTime.get()){
-            if(containSecond){
+            if(containSecond.get()){
                 time = new ObservableField<>(TimeExtKt.currentTime("HH:mm:ss"));
             }else{
                 time = new ObservableField<>(TimeExtKt.currentTime("HH:mm"));
@@ -105,7 +107,7 @@ public class CalendarDialog extends Dialog implements DateTimePresenter {
             week = new ObservableField<>(TimeExtKt.weekStr());
             dataBinding.setTime(time);
             dataBinding.setWeek(week);
-
+            dataBinding.setContainSecond(containSecond);
             initTime();
         }
         dayAdapter = new DayAdapter(null,getContext());
@@ -139,8 +141,9 @@ public class CalendarDialog extends Dialog implements DateTimePresenter {
         int width = ViewUtil.Companion.getScreenSize(getContext())[0];
         int tempSize = (width- ViewUtil.Companion.dip2px(getContext(),6))/7;
         int height = tempSize * size;
+        height = height + ViewUtil.Companion.dip2px(getContext(),70);
         if(haveTime.get()){
-            height = height + ViewUtil.Companion.dip2px(getContext(),70);
+            height = height + ViewUtil.Companion.dip2px(getContext(),105);
         }
         lp.height = height;
         window.setAttributes(lp);
@@ -215,6 +218,8 @@ public class CalendarDialog extends Dialog implements DateTimePresenter {
             dt.setType(DateTime.TYPE_DATE);
             dt.setStatus(DateTime.STATE_USED);
             dt.setDay(day);
+            dt.setYear(y);
+            dt.setMonth(m);
             dt.setSelected(false);
             if(isNowMoth){
                 if(day == nowDay){
@@ -243,8 +248,135 @@ public class CalendarDialog extends Dialog implements DateTimePresenter {
 
     private void initTime(){
         List<String> hourList = new ArrayList<>(24);
-        List<String> minuteList = new ArrayList<>(60);
+        int hour = 0;
+        while(hour <= 23){
+            if(hour < 10){
+                hourList.add("0"+hour);
+            }else{
+                hourList.add(String.valueOf(hour));
+            }
 
+            hour++;
+        }
+        dataBinding.hourWheelview.setAdapter(new ArrayWheelAdapter(hourList));
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        this.hour = c.get(Calendar.HOUR);
+        dataBinding.hourWheelview.setCurrentItem(this.hour);
+
+        List<String> minuteList = new ArrayList<>(60);
+        int minute = 0;
+        while(minute <= 59){
+            if(minute < 10){
+                minuteList.add("0"+minute);
+            }else{
+                minuteList.add(String.valueOf(minute));
+            }
+            minute++;
+        }
+        dataBinding.minuteWheelview.setAdapter(new ArrayWheelAdapter(minuteList));
+        this.minute = c.get(Calendar.MINUTE);
+        dataBinding.minuteWheelview.setCurrentItem(this.minute);
+        if(containSecond.get()){
+            List<String> secondList = new ArrayList<>(60);
+            int second = 0;
+            while (second <= 60){
+                if(second < 10){
+                    secondList.add("0"+second);
+                }else{
+                    secondList.add(String.valueOf(second));
+                }
+                second++;
+            }
+            dataBinding.secondWheelview.setAdapter(new ArrayWheelAdapter(secondList));
+            this.second = c.get(Calendar.SECOND);
+            dataBinding.secondWheelview.setCurrentItem(this.second);
+        }
+
+        dataBinding.hourWheelview.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(int index) {
+                CalendarDialog.this.hour = index;
+                StringBuffer sb = new StringBuffer(64);
+                if(CalendarDialog.this.hour < 10){
+                    sb.append("0").append(CalendarDialog.this.hour);
+                }else{
+                    sb.append(CalendarDialog.this.hour);
+                }
+                sb.append(":");
+                if(CalendarDialog.this.minute < 10){
+                    sb.append("0").append(CalendarDialog.this.minute);
+                }else{
+                    sb.append(CalendarDialog.this.minute);
+                }
+                if(containSecond.get()){
+                    sb.append(":");
+                    if(CalendarDialog.this.second < 10){
+                        sb.append("0").append(CalendarDialog.this.second);
+                    }else{
+                        sb.append(CalendarDialog.this.second);
+                    }
+                }
+                time.set(sb.toString());
+            }
+        });
+
+        dataBinding.minuteWheelview.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(int index) {
+                CalendarDialog.this.minute = index;
+                StringBuffer sb = new StringBuffer(64);
+                if(CalendarDialog.this.hour < 10){
+                    sb.append("0").append(CalendarDialog.this.hour);
+                }else{
+                    sb.append(CalendarDialog.this.hour);
+                }
+                sb.append(":");
+                if(CalendarDialog.this.minute < 10){
+                    sb.append("0").append(CalendarDialog.this.minute);
+                }else{
+                    sb.append(CalendarDialog.this.minute);
+                }
+                if(containSecond.get()){
+                    sb.append(":");
+                    if(CalendarDialog.this.second < 10){
+                        sb.append("0").append(CalendarDialog.this.second);
+                    }else{
+                        sb.append(CalendarDialog.this.second);
+                    }
+                }
+                time.set(sb.toString());
+            }
+        });
+
+        dataBinding.secondWheelview.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(int index) {
+                CalendarDialog.this.second = index;
+                StringBuffer sb = new StringBuffer(64);
+                if(CalendarDialog.this.hour < 10){
+                    sb.append("0").append(CalendarDialog.this.hour);
+                }else{
+                    sb.append(CalendarDialog.this.hour);
+                }
+                sb.append(":");
+                if(CalendarDialog.this.minute < 10){
+                    sb.append("0").append(CalendarDialog.this.minute);
+                }else{
+                    sb.append(CalendarDialog.this.minute);
+                }
+                if(containSecond.get()){
+                    sb.append(":");
+                    if(CalendarDialog.this.second < 10){
+                        sb.append("0").append(CalendarDialog.this.second);
+                    }else{
+                        sb.append(CalendarDialog.this.second);
+                    }
+                }
+                time.set(sb.toString());
+            }
+        });
     }
 
 
@@ -275,6 +407,34 @@ public class CalendarDialog extends Dialog implements DateTimePresenter {
             dialogDate = c.getTime();
             queryDateList(dialogDate);
             date.set(dialogDate);
+        }else if(view.getId() == R.id.tv_enter){
+            if(onCalendarListener != null){
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                StringBuilder sb = new StringBuilder(sdf.format(date.get()));
+                if(haveTime.get()){
+                    sb.append(" ");
+                    if(this.hour < 10){
+                        sb.append("0").append(this.hour);
+                    }else{
+                        sb.append(this.hour);
+                    }
+                    sb.append(":");
+                    if(this.minute < 10){
+                        sb.append("0").append(this.minute);
+                    }else{
+                        sb.append(this.minute);
+                    }
+                    if(containSecond.get()){
+                        sb.append(":");
+                        if(this.second < 10){
+                            sb.append("0").append(this.second);
+                        }else{
+                            sb.append(this.second);
+                        }
+                    }
+                }
+                onCalendarListener.onCalendar(sb.toString());
+            }
         }
     }
 
@@ -293,6 +453,19 @@ public class CalendarDialog extends Dialog implements DateTimePresenter {
             date.set(dialogDate);
             dayAdapter.notifyDataSetChanged();
         }
+    }
+
+    public void setOnCalendarListener(OnCalendarListener onCalendarListener) {
+        this.onCalendarListener = onCalendarListener;
+    }
+
+    public OnCalendarListener getOnCalendarListener() {
+        return onCalendarListener;
+    }
+
+    public interface OnCalendarListener{
+
+        void onCalendar(String dateTime);
     }
 
     public static class Builder{
@@ -320,6 +493,8 @@ public class CalendarDialog extends Dialog implements DateTimePresenter {
 
         private String title;
 
+        private OnCalendarListener onCalendarListener;
+
         public Builder(Context context){
             this.context = context;
         }
@@ -341,6 +516,11 @@ public class CalendarDialog extends Dialog implements DateTimePresenter {
 
         public Builder haveTime(boolean haveTime){
             this.haveTime = haveTime;
+            return this;
+        }
+
+        public Builder onCalendarListener(OnCalendarListener onCalendarListener){
+            this.onCalendarListener = onCalendarListener;
             return this;
         }
 

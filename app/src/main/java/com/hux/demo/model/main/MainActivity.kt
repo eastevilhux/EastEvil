@@ -20,7 +20,8 @@ import com.hux.demo.commons.AppActivity
 import com.hux.demo.commons.TestApp
 import com.hux.demo.databinding.ActivityMainBinding
 
-class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>() {
+class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
+    CalendarDialog.OnCalendarListener {
 
     var calendarDialog : CalendarDialog? = null;
 
@@ -63,6 +64,8 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>() {
                 calendarDialog?:let {
                     calendarDialog = CalendarDialog.Builder(this)
                         .haveTime(true)
+                        .onCalendarListener(this)
+                        .containSecond(true)
                         .builder()
                 }
                 calendarDialog!!.show();
@@ -85,8 +88,9 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>() {
         }
     }
 
-
-
+    override fun onCalendar(dateTime: String?) {
+        showToastShort(dateTime?:"wtf");
+    }
 
 
 }
