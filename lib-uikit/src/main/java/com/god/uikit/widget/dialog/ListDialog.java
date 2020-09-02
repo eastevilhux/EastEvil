@@ -172,6 +172,8 @@ public class ListDialog extends Dialog implements AdapterView.OnItemClickListene
 
     public void setItemList(List<Item> itemList) {
         this.itemList = itemList;
+        adapter.setList(this.itemList);
+        adapter.notifyDataSetChanged();
     }
 
     public int getSelectType() {
