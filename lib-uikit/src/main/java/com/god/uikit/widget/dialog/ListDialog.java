@@ -39,6 +39,8 @@ public class ListDialog extends Dialog implements AdapterView.OnItemClickListene
 
     private List<Item> selectItemList;
 
+    private int tag;
+
     private OnDialogItemClickListener onDialogItemClickListener;
 
     private ListDialog(@NonNull Context context) {
@@ -154,6 +156,14 @@ public class ListDialog extends Dialog implements AdapterView.OnItemClickListene
                 onDialogItemClickListener.onEnter(selectItemList);
             }
         }
+    }
+
+    public void setTag(int tag) {
+        this.tag = tag;
+    }
+
+    public int getTag() {
+        return tag;
     }
 
     public static class Builder{
