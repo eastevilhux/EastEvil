@@ -7,8 +7,6 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Item implements Serializable {
-    public static final int SELECT_TYPE_DISMISS = 0x01;
-    public static final int SELECT_TYEP_MORE = 0x02;
     /**
      * 资源类型
      */
@@ -28,6 +26,7 @@ public class Item implements Serializable {
      */
     public static final int IMAGE_TYPE_URL = 0x02;
 
+    private int id;
     private @DrawableRes int imageResource;
     private @StringRes int itemResource;
     private String imageUrl;
@@ -36,8 +35,8 @@ public class Item implements Serializable {
     private boolean select;
     private int textType;
     private int imageType;
-    private int selectType;
     private boolean haveIcon;
+    private int tag;
 
     public Item(@DrawableRes int imageResource,@StringRes int itemResource){
         this.imageResource = imageResource;
@@ -91,8 +90,9 @@ public class Item implements Serializable {
         this.select = bulder.select;
         this.textType = bulder.textType;
         this.imageType = bulder.type;
-        this.selectType = bulder.selectType;
         this.haveIcon = bulder.haveIcon;
+        this.id = bulder.id;
+        this.tag = bulder.tag;
     }
 
     public int getImageResource() {
@@ -159,12 +159,20 @@ public class Item implements Serializable {
         this.imageType = imageType;
     }
 
-    public int getSelectType() {
-        return selectType;
+    public int getId() {
+        return id;
     }
 
-    public void setSelectType(int selectType) {
-        this.selectType = selectType;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getTag() {
+        return tag;
+    }
+
+    public void setTag(int tag) {
+        this.tag = tag;
     }
 
     public boolean isHaveIcon() {
@@ -200,8 +208,9 @@ public class Item implements Serializable {
         private boolean select;
         private int textType;
         private int imageType;
-        private int selectType;
         private boolean haveIcon;
+        private int id;
+        private int tag;
 
         public Bulder text(@StringRes int textRes){
             this.itemResource = textRes;
@@ -232,8 +241,19 @@ public class Item implements Serializable {
             return this;
         }
 
-        public Bulder selectType(int selectType){
-            this.selectType = selectType;
+        public Bulder id(int id){
+            this.id = id;
+            return this;
+        }
+
+        public Bulder tag(int tag){
+            this.tag = tag;
+            return this;
+        }
+
+        public Bulder buildItem(int id,int tag){
+            this.id = id;
+            this.tag = tag;
             return this;
         }
 

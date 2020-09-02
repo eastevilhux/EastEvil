@@ -13,6 +13,9 @@
         <variable
             name="adapter"
             type="com.god.uikit.adapter.ItemAdapter" />
+        <variable
+            name="dialog"
+            type="com.god.uikit.widget.dialog.ListDialog" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,7 +58,8 @@
                 android:layout_marginRight="@dimen/dp_10"
                 android:text="@string/lib_enter"
                 style="@style/AppTextTheme"
-                android:textColor="@color/colorWhite"/>
+                android:textColor="@color/colorWhite"
+                android:onClick="@{dialog.onViewClick}"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

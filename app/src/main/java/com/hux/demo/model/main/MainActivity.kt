@@ -4,9 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.god.uikit.entity.Item
 import com.god.uikit.utils.screenSize
+import com.god.uikit.widget.ViewToast
 import com.god.uikit.widget.dialog.CalendarDialog
 import com.god.uikit.widget.dialog.ListDialog
 import com.good.framework.commons.EastConstants
@@ -21,9 +23,10 @@ import com.hux.demo.R
 import com.hux.demo.commons.AppActivity
 import com.hux.demo.commons.TestApp
 import com.hux.demo.databinding.ActivityMainBinding
+import java.lang.StringBuilder
 
 class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
-    CalendarDialog.OnCalendarListener {
+    CalendarDialog.OnCalendarListener, ListDialog.OnDialogItemClickListener {
 
     var calendarDialog : CalendarDialog? = null;
 
@@ -45,17 +48,19 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
         dataBinding?.lvLicenseplate!!.setLicensePlateDao(dao);
 
         var itemList = mutableListOf<Item>();
-        itemList.add(Item.Bulder().text("fuck1").selectType(Item.SELECT_TYEP_MORE).haveIcon(true).bulder());
-        itemList.add(Item.Bulder().text("fuck2").selectType(Item.SELECT_TYPE_DISMISS).bulder());
-        itemList.add(Item.Bulder().text("fuck3").selectType(Item.SELECT_TYEP_MORE).haveIcon(true).bulder());
-        itemList.add(Item.Bulder().text("fuck4").selectType(Item.SELECT_TYEP_MORE).select(true).bulder());
-        itemList.add(Item.Bulder().text("fuck5").selectType(Item.SELECT_TYPE_DISMISS).bulder());
+        itemList.add(Item.Bulder().text("fuck1").haveIcon(true).buildItem(1,2).bulder());
+        itemList.add(Item.Bulder().text("fuck2").buildItem(2,3).bulder());
+        itemList.add(Item.Bulder().text("fuck3").haveIcon(true).buildItem(3,4).bulder());
+        itemList.add(Item.Bulder().text("fuck4").buildItem(4,5).bulder());
+        itemList.add(Item.Bulder().text("fuck5").buildItem(5,6).bulder());
 
 
         listDialog = ListDialog.Builder(this)
             .title("what a fuck")
             .haveTitle(true)
             .itemList(itemList)
+            .onDialogItemClickListener(this)
+            .selectType(ListDialog.SELECT_TYPE_MORE)
             .builder();
     }
 
@@ -103,7 +108,6 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
                     var city = data?.getSerializableExtra(EastConstants.KEY_CITY) as City?;
                     var area = data?.getSerializableExtra(EastConstants.KEY_AREA) as City?;
                     showToastShort(province?.name+ city?.name + area?.name);
-                    //showToastShort(province+ city+area);
                 }
             }
         }
@@ -112,6 +116,20 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
 
     override fun onCalendar(dateTime: String?, tag: Int) {
         showToastShort(dateTime?:"WTF");
+    }
+
+    override fun onEnter(selectItemList: MutableList<Item>?) {
+        var sb = StringBuilder();
+        selectItemList?.let {
+            it.forEach {
+                sb.append(it.id);
+            }
+            ViewToast.show(this,sb.toString(),Toast.LENGTH_LONG);
+        }
+    }
+
+    override fun onItemClick(position: Int, item: Item?) {
+        ViewToast.show(this,"fuck=ID=>${item?.id},TAG=>${item?.tag}",Toast.LENGTH_LONG);
     }
 
 

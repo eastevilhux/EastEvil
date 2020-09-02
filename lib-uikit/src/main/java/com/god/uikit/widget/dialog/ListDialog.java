@@ -18,9 +18,13 @@ import com.god.uikit.databinding.DialogListBinding;
 import com.god.uikit.entity.Item;
 import com.god.uikit.utils.ViewUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListDialog extends Dialog implements AdapterView.OnItemClickListener {
+    public static final int SELECT_TYPE_DISMISS = 0x01;
+    public static final int SELECT_TYEP_SHOW = 0x02;
+    public static final int SELECT_TYPE_MORE = 0x03;
 
     private DialogListBinding dataBinding;
 
@@ -30,6 +34,12 @@ public class ListDialog extends Dialog implements AdapterView.OnItemClickListene
 
     private List<Item> itemList;
 
+    private int lastSelect = -1;
+    private int selectType;
+
+    private List<Item> selectItemList;
+
+    private OnDialogItemClickListener onDialogItemClickListener;
 
     private ListDialog(@NonNull Context context) {
         super(context);
@@ -48,6 +58,13 @@ public class ListDialog extends Dialog implements AdapterView.OnItemClickListene
         this.title = new ObservableField<>(builder.title);
         this.haveTitle = new ObservableField<>(builder.haveTitle);
         this.itemList = builder.itemList;
+        this.selectType = builder.selectType == 0 ? SELECT_TYPE_DISMISS : builder.selectType;
+        this.onDialogItemClickListener = builder.onDialogItemClickListener;
+        if(builder.postion == null){
+            this.lastSelect = -1;
+        }else{
+            this.lastSelect = builder.postion;
+        }
         init();
     }
 
@@ -63,6 +80,7 @@ public class ListDialog extends Dialog implements AdapterView.OnItemClickListene
         dataBinding.setAdapter(adapter);
 
         dataBinding.menuListview.setOnItemClickListener(this);
+        dataBinding.setDialog(this);
         countSize();
     }
 
@@ -87,7 +105,55 @@ public class ListDialog extends Dialog implements AdapterView.OnItemClickListene
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        if(selectType == SELECT_TYEP_SHOW){
+            itemList.get(i).setSelect(true);
+            if(lastSelect != -1){
+                itemList.get(lastSelect).setSelect(false);
+            }
+            lastSelect = i;
+            adapter.setList(itemList);
+            adapter.notifyDataSetChanged();
+            if(onDialogItemClickListener != null){
+                onDialogItemClickListener.onItemClick(i,itemList.get(i));
+            }
+        }else if(selectType == SELECT_TYPE_DISMISS){
+            dismiss();
+            if(onDialogItemClickListener != null)
+                onDialogItemClickListener.onItemClick(i,itemList.get(i));
+        }else{
+            //多选
+            if(selectItemList == null) {
+                selectItemList = new ArrayList<>();
+            }
+            Item item = itemList.get(i);
+            if(item.isSelect()){
+                //判断之前是否已经有本次的选中
+                if(selectItemList.indexOf(item) != -1){
+                    //移除本次的添加
+                    selectItemList.remove(item);
+                }
+                //已经选中,则本次设置为未选中
+                item.setSelect(false);
+            }else{
+                //未选中，则设置为选中
+                item.setSelect(true);
+                if(selectItemList.indexOf(item) == -1){
+                    selectItemList.add(item);
+                }
+            }
+            adapter.setList(itemList);
+            adapter.notifyDataSetChanged();
 
+        }
+    }
+
+    public void onViewClick(View view){
+        dismiss();
+        if(view.getId() == R.id.tv_enter){
+            if(onDialogItemClickListener != null){
+                onDialogItemClickListener.onEnter(selectItemList);
+            }
+        }
     }
 
     public static class Builder{
@@ -95,6 +161,9 @@ public class ListDialog extends Dialog implements AdapterView.OnItemClickListene
         private boolean haveTitle;
         private Context context;
         private List<Item> itemList;
+        private Integer postion;
+        private int selectType;
+        private OnDialogItemClickListener onDialogItemClickListener;
 
         public Builder(Context context){
             this.context = context;
@@ -115,10 +184,33 @@ public class ListDialog extends Dialog implements AdapterView.OnItemClickListene
             return this;
         }
 
+        public Builder currentItem(Integer postion){
+            this.postion = postion;
+            return this;
+        }
+
+        public Builder selectType(int selectType){
+            this.selectType = selectType;
+            return this;
+        }
+
+        public Builder onDialogItemClickListener(OnDialogItemClickListener onDialogItemClickListener){
+            this.onDialogItemClickListener = onDialogItemClickListener;
+            return this;
+        }
 
         public ListDialog builder(){
             return new ListDialog(this);
         }
 
     }
+
+    public interface OnDialogItemClickListener{
+
+        void onItemClick(int position,Item item);
+
+        void onEnter(List<Item> selectItemList);
+
+    }
+
 }
