@@ -182,6 +182,22 @@ public class ListDialog extends Dialog implements AdapterView.OnItemClickListene
         this.selectType = selectType;
     }
 
+    public void title(String title){
+        this.title.set(title);
+    }
+
+    public void haveTitle(boolean haveTitle){
+        this.haveTitle.set(haveTitle);
+    }
+
+    public OnDialogItemClickListener getOnDialogItemClickListener() {
+        return onDialogItemClickListener;
+    }
+
+    public void setOnDialogItemClickListener(OnDialogItemClickListener onDialogItemClickListener) {
+        this.onDialogItemClickListener = onDialogItemClickListener;
+    }
+
     public static class Builder{
         private String title;
         private boolean haveTitle;
