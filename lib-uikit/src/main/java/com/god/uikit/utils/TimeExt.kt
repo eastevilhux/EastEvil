@@ -1,5 +1,6 @@
 package com.god.uikit.utils
 
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,7 +26,7 @@ fun currentDate() : Date{
 
 
 fun String.toLongTimeStamp() : Long? {
-    var sdf = SimpleDateFormat("yyyy-MM-dd : HH:mm:ss");
+    var sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     var date = sdf.parse(this);
     date?.let {
         return date.time;
@@ -173,5 +174,11 @@ fun getDayOfMonth(year: Int, month: Int): Int {
 }
 
 fun main(args: Array<String>) {
-    System.out.println(getMonthEndWeek(2020,6));
+    var fuck = "asddfasdf";
+    try {
+        var fuckNum = fuck.toInt();
+    }catch (e : Exception){
+        e.printStackTrace();
+        System.out.println("fucking now");
+    }
 }

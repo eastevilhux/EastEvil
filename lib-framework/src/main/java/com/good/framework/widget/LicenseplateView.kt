@@ -82,6 +82,10 @@ class LicenseplateView : FrameLayout, AbbreviationPopupWindow.OnAbbreviationList
         this.licensePlateDao = licensePlateDao;
     }
 
+    fun setOnLicenseplateListener(onLicenseplateListener:OnLicenseplateListener){
+        this.onLicenseplateListener = onLicenseplateListener;
+    }
+
     fun onViewClick(view : View){
         when(view.id){
             R.id.tv_abbreviation->{
