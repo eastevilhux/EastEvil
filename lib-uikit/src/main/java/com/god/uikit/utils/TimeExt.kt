@@ -23,6 +23,24 @@ fun currentDate() : Date{
     return Date();
 }
 
+
+fun String.toLongTimeStamp() : Long? {
+    var sdf = SimpleDateFormat("yyyy-MM-dd : HH:mm:ss");
+    var date = sdf.parse(this);
+    date?.let {
+        return date.time;
+    }?:return null;
+}
+
+fun String.toLongTimeStamp(sdf:String): Long? {
+    var sdf = SimpleDateFormat(sdf);
+    var date = sdf.parse(this);
+    date?.let {
+        return date.time;
+    }?:return null;
+}
+
+
 /**
  * 获取前一个月最后一天
  */
