@@ -90,6 +90,7 @@
                 android:layout_height="@dimen/dp_80"
                 app:menuText="2222"
                 app:lineState="false"
+                app:hiddenType="gone"
                 app:menuTextColor="@color/colorAccent"
                 app:lineColor="@color/colorUploadimgTitle"/>
 

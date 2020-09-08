@@ -234,7 +234,7 @@
         <attr name="lineMarginButtom" format="dimension"/>
         <attr name="hiddenType" format="enum">
             <enum name="gone" value="1"/>
-            <enum value="invisible" name="2"/>
+            <enum name="invisible" value="2"/>
         </attr>
     </declare-styleable>
 </resources>
