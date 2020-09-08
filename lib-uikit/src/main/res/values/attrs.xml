@@ -232,5 +232,9 @@
         <attr name="line_height" format="dimension"/>
         <attr name="line_width" format="dimension"/>
         <attr name="lineMarginButtom" format="dimension"/>
+        <attr name="hiddenType" format="enum">
+            <enum name="gone" value="1"/>
+            <enum value="invisible" name="2"/>
+        </attr>
     </declare-styleable>
 </resources>
