@@ -93,5 +93,13 @@ class TabmenuLayout : FrameLayout{
         return lineState.get() ?: false;
     }
 
+    fun setMenuTextColor(color:Int){
+        dataBinding?.tvItemtext?.setTextColor(color);
+    }
+
+    fun setMenuText(menuText : String){
+        this.menuText.set(menuText);
+    }
+
 
 }
