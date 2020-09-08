@@ -217,4 +217,20 @@
         <attr name="content_gravity"/>
         <attr name="arrowImgSize" format="dimension"></attr>
     </declare-styleable>
+
+    <declare-styleable name="NodataView">
+        <attr name="nodataImageSrc" format="reference"/>
+        <attr name="nodataText" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="TabmenuLayout">
+        <attr name="lineState" format="boolean"/>
+        <attr name="lineColor"/>
+        <attr name="menuText"/>
+        <attr name="menuTextColor"/>
+        <attr name="menuTextSize" format="dimension"/>
+        <attr name="line_height" format="dimension"/>
+        <attr name="line_width" format="dimension"/>
+        <attr name="lineMarginButtom" format="dimension"/>
+    </declare-styleable>
 </resources>

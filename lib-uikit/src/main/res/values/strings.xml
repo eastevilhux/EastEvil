@@ -33,4 +33,5 @@
     <string name="license_plate">车牌号码</string>
     <string name="hint_lincese_number">请输入车牌号码</string>
     <string name="please_select_city">请选择城市</string>
+    <string name="no_data_click_to_refresh">暂无数据,点击刷新</string>
 </resources>
