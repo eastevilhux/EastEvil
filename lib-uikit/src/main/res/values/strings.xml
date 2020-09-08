@@ -9,6 +9,8 @@
     <string name="lib_nomore">暂无更多数据</string>
     <string name="lib_time">时间</string>
     <string name="lib_data">日期</string>
+    <string name="lib_colon_english">:</string>
+    <string name="lib_enter">确定</string>
 
     <string name="setting">设置</string>
     <string name="message">消息</string>

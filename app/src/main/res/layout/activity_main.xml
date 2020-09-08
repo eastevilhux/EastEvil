@@ -95,6 +95,15 @@
 
         </LinearLayout>
 
+
+        <TextView
+            android:id="@+id/tv_listdialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/AppTextTheme"
+            android:text="列表弹框测试"
+            android:onClick="@{mainac.onViewClick}"/>
+
     </LinearLayout>
 
 </layout>

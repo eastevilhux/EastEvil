@@ -82,6 +82,18 @@ class LicenseplateView : FrameLayout, AbbreviationPopupWindow.OnAbbreviationList
         this.licensePlateDao = licensePlateDao;
     }
 
+    fun setOnLicenseplateListener(onLicenseplateListener:OnLicenseplateListener){
+        this.onLicenseplateListener = onLicenseplateListener;
+    }
+
+    fun getLicenseplateInputText(): String {
+        return dataBinding?.etLicensenum?.text.toString();
+    }
+
+    fun getLicenseplateText() : String{
+        return "${dataBinding?.tvAbbreviation!!.text.toString()}${dataBinding?.tvLetter!!.text.toString()}${dataBinding?.etLicensenum!!.text.toString()}"
+    }
+
     fun onViewClick(view : View){
         when(view.id){
             R.id.tv_abbreviation->{
