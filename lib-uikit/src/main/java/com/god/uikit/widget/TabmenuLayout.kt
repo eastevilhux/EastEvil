@@ -73,7 +73,6 @@ class TabmenuLayout : FrameLayout{
         init();
     }
 
-    @SuppressLint("WrongConstant")
     private fun init(){
         dataBinding = DataBindingUtil.inflate(
             LayoutInflater.from(context), R.layout.layout_tabmenu,
@@ -86,13 +85,13 @@ class TabmenuLayout : FrameLayout{
 
         if(lineState){
             //需要显示
+            dataBinding?.tvLine!!.visibility = View.VISIBLE;
+        }else{
             if(hiddenType == GONE){
                 dataBinding?.tvLine!!.visibility = View.GONE;
             }else{
-                dataBinding?.tvLine!!.visibility = INVISIBLE;
+                dataBinding?.tvLine!!.visibility = View.INVISIBLE;
             }
-        }else{
-            dataBinding?.tvLine!!.visibility = View.VISIBLE;
         }
 
         var lineParams = dataBinding?.tvLine!!.layoutParams as MarginLayoutParams;
@@ -103,7 +102,6 @@ class TabmenuLayout : FrameLayout{
     }
 
 
-    @SuppressLint("WrongConstant")
     fun setLineState(lineState:Boolean){
         this.lineState = lineState;
         if(lineState){
@@ -111,7 +109,7 @@ class TabmenuLayout : FrameLayout{
             if(hiddenType == GONE){
                 dataBinding?.tvLine!!.visibility = View.GONE;
             }else{
-                dataBinding?.tvLine!!.visibility = INVISIBLE;
+                dataBinding?.tvLine!!.visibility = View.INVISIBLE;
             }
         }else{
             dataBinding?.tvLine!!.visibility = View.VISIBLE;
