@@ -11,6 +11,7 @@
     <string name="lib_data">日期</string>
     <string name="lib_colon_english">:</string>
     <string name="lib_enter">确定</string>
+    <string name="lib_dolor">¥</string>
 
     <string name="setting">设置</string>
     <string name="message">消息</string>
@@ -36,4 +37,6 @@
     <string name="hint_lincese_number">请输入车牌号码</string>
     <string name="please_select_city">请选择城市</string>
     <string name="no_data_click_to_refresh">暂无数据,点击刷新</string>
+    <string name="money_dialog_title">请输入支付密码</string>
+    <string name="money_dialog_type">系统费用</string>
 </resources>

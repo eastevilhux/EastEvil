@@ -11,6 +11,7 @@ import com.god.uikit.utils.screenSize
 import com.god.uikit.widget.ViewToast
 import com.god.uikit.widget.dialog.CalendarDialog
 import com.god.uikit.widget.dialog.ListDialog
+import com.god.uikit.widget.dialog.NumberpsdDialog
 import com.good.framework.commons.EastConstants
 import com.good.framework.db.LicensePlateDao
 import com.good.framework.entity.ImageData
@@ -31,6 +32,8 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
     var calendarDialog : CalendarDialog? = null;
 
     var listDialog : ListDialog? = null;
+
+    var psdDialog : NumberpsdDialog? = null;
 
     override fun getLayoutRes(): Int = R.layout.activity_main;
 
@@ -62,6 +65,9 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
             .onDialogItemClickListener(this)
             .selectType(ListDialog.SELECT_TYPE_MORE)
             .builder();
+
+
+        psdDialog = NumberpsdDialog(this);
     }
 
     fun onViewClick(view: View){
@@ -95,6 +101,9 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
             }
             R.id.tv_listdialog->{
                 listDialog!!.show();
+            }
+            R.id.tv_psd_dialog->{
+                psdDialog!!.show();
             }
         }
     }

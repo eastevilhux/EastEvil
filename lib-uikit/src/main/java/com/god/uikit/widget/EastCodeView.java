@@ -44,6 +44,7 @@ public class EastCodeView extends EditText {
     private int circleRadius;
 
     private boolean isConceal;
+    private boolean isPassword = false;
     private String mReplaceString;
     private Drawable mReplaceDrawable;
 
@@ -174,6 +175,8 @@ public class EastCodeView extends EditText {
         isContinuousRepeatChar = typedArray.getBoolean(R.styleable.EastCodeView_isContinuousRepeatChar, false);
         isContinuousChar = typedArray.getBoolean(R.styleable.EastCodeView_isContinuousChar, false);
         isInvokingKeyboard = typedArray.getBoolean(R.styleable.EastCodeView_isInvokingKeyboard, true);
+
+        isPassword = typedArray.getBoolean(R.styleable.EastCodeView_isPassword,false);
 
         setBackgroundColor(Color.TRANSPARENT);
 
@@ -391,13 +394,18 @@ public class EastCodeView extends EditText {
      */
     private void drawText(Canvas canvas) {
         char[] chars = getText().toString().toCharArray();
-
+        String txt = "";
         for (int i = 0, n = chars.length; i < n; i++) {
             //绘制输入状态
             Paint.FontMetrics fontMetrics = paintText.getFontMetrics();
             int baseLineY = (int) (mWidth / 2 - fontMetrics.top / 2 - fontMetrics.bottom / 2);
+            if(isPassword){
+                txt = "*";
+            }else{
+                txt = String.valueOf(chars[i]);
+            }
             canvas.drawText(
-                    String.valueOf(chars[i]),
+                    txt,
                     (startX + i * mWidth + mWidth / 2 + (isContinuous ? 0 : i * intervalWidth)),
                     baseLineY,
                     paintText
@@ -594,6 +602,10 @@ public class EastCodeView extends EditText {
         }
         invalidate();
 
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public void setmInputOverListener(InputOverListener mInputOverListener) {

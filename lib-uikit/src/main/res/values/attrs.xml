@@ -264,5 +264,6 @@
         <attr name="isContinuousRepeatChar" format="boolean" />
         <attr name="isContinuousChar" format="boolean" />
         <attr name="isInvokingKeyboard" format="boolean" />
+        <attr name="isPassword"/>
     </declare-styleable>
 </resources>

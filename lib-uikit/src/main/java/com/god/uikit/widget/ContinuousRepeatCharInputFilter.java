@@ -31,7 +31,6 @@ public class ContinuousRepeatCharInputFilter implements InputFilter {
     @Override
     public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
 
-
         if (source.length() == 0 && dend > dstart) {
             if (dstart == 0) {
                 lastChar = null;

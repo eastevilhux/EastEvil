@@ -117,6 +117,14 @@
                 android:background="@color/colorWhite"
                 app:lineColor="@color/colorAccent"/>
 
+
+
+            <TextView
+                android:id="@+id/tv_psd_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_30"
+                android:text="支付密码弹框测试"
+                android:onClick="@{mainac.onViewClick}"/>
         </LinearLayout>
 
 
