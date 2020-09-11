@@ -237,4 +237,32 @@
             <enum name="invisible" value="2"/>
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="EastCodeView">
+        <attr name="height" format="dimension" />
+        <attr name="width" format="dimension" />
+        <attr name="count" format="integer" />
+        <attr name="lineWidth" format="dimension" />
+        <attr name="lineColor"/>
+        <attr name="fillColor" format="color" />
+        <attr name="focusLineWidth" format="dimension" />
+        <attr name="focusLColor" format="color" />
+        <attr name="focusFillColor" format="color" />
+        <attr name="employLineWidth" format="dimension" />
+        <attr name="employLColor" format="color" />
+        <attr name="employFillColor" format="color" />
+        <attr name="textColor" format="color" />
+        <attr name="textSize" format="dimension" />
+        <attr name="conceal" format="boolean" />
+        <attr name="replaceString" format="string" />
+        <attr name="replaceDrawable" format="reference" />
+        <attr name="circleRadius" format="dimension" />
+        <attr name="circleColor" format="color" />
+        <attr name="borderRadius" format="dimension" />
+        <attr name="isContinuous" format="boolean" />
+        <attr name="intervalWidth" format="dimension" />
+        <attr name="isContinuousRepeatChar" format="boolean" />
+        <attr name="isContinuousChar" format="boolean" />
+        <attr name="isInvokingKeyboard" format="boolean" />
+    </declare-styleable>
 </resources>
