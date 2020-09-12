@@ -27,7 +27,8 @@ import com.hux.demo.databinding.ActivityMainBinding
 import java.lang.StringBuilder
 
 class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
-    CalendarDialog.OnCalendarListener, ListDialog.OnDialogItemClickListener {
+    CalendarDialog.OnCalendarListener, ListDialog.OnDialogItemClickListener,
+    NumberpsdDialog.OnPasswordDialogListener {
 
     var calendarDialog : CalendarDialog? = null;
 
@@ -71,7 +72,8 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
             .title("fuck")
             .amount("0.12")
             .typeText("sdfasdfas")
-            .psdNumber(8)
+            .psdNumber(3)
+            .onPasswordDialogListener(this)
             .build();
     }
 
@@ -144,6 +146,14 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
 
     override fun onItemClick(position: Int, item: Item?) {
         ViewToast.show(this,"fuck=ID=>${item?.id},TAG=>${item?.tag}",Toast.LENGTH_LONG);
+    }
+
+    override fun onPassword(password: String) {
+        showToastShort(password);
+    }
+
+    override fun onDismiss() {
+        showToastShort("fuck???");
     }
 
 

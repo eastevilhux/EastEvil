@@ -2,6 +2,7 @@ package com.god.uikit.widget.dialog
 
 import android.app.Dialog
 import android.content.Context
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.databinding.DataBindingUtil
@@ -20,6 +21,8 @@ class NumberpsdDialog private constructor(builder: Builder) : Dialog(builder.con
     private lateinit var dataBinding: DialogNumpasswordBinding;
     private lateinit var myContent: Context;
 
+    private var onPasswordDialogListener : OnPasswordDialogListener? = null;
+
     private val title = ObservableField<String>();
     private val amount = ObservableField<String>();
     private val typeText = ObservableField<String>();
@@ -31,11 +34,12 @@ class NumberpsdDialog private constructor(builder: Builder) : Dialog(builder.con
         amount.set(builder.amount);
         typeText.set(builder.typeText)
         psdNumber = builder.psdNumber;
-
+        this.onPasswordDialogListener = builder.onPasswordDialogListener;
         dataBinding = DataBindingUtil.inflate(
             layoutInflater, R.layout.dialog_numpassword,
             null, false
         );
+        dataBinding.dialog = this;
         dataBinding.titleText = title;
         dataBinding.amount = amount;
         dataBinding.moneyType = typeText;
@@ -56,15 +60,39 @@ class NumberpsdDialog private constructor(builder: Builder) : Dialog(builder.con
         dataBinding.passwordView.setmInputOverListener(this)
     }
 
+    fun onViewClick(view : View){
+        when(view.id){
+            R.id.iv_dismiss->{
+                dismiss()
+                if(onPasswordDialogListener != null){
+                    onPasswordDialogListener!!.onDismiss();
+                }
+            }
+        }
+    }
+
 
     override fun InputHint(string: String?) {
-        ViewToast.show(myContent, string ?: "A", Toast.LENGTH_SHORT)
+
     }
 
-    override fun InputOver(string: String?) {
-        ViewToast.show(myContent, string ?: "H", Toast.LENGTH_SHORT)
+    override fun InputOver(string: String) {
+        dismiss();
+        if(onPasswordDialogListener != null)
+            onPasswordDialogListener!!.onPassword(string);
     }
 
+    fun setOnPasswordDialogListener(onPasswordDialogListener : OnPasswordDialogListener){
+        this.onPasswordDialogListener = onPasswordDialogListener;
+    }
+
+
+    interface OnPasswordDialogListener{
+
+        fun onPassword(password : String);
+
+        fun onDismiss();
+    }
 
     class Builder constructor(context: Context){
         var context : Context;
@@ -72,6 +100,7 @@ class NumberpsdDialog private constructor(builder: Builder) : Dialog(builder.con
         var amount : String? = null;
         var typeText : String? = null;
         var psdNumber : Int = 6;
+        var onPasswordDialogListener : OnPasswordDialogListener? = null;
 
         init {
             this.context = context;
@@ -94,6 +123,11 @@ class NumberpsdDialog private constructor(builder: Builder) : Dialog(builder.con
 
         fun psdNumber(psdNumber : Int) : Builder{
             this.psdNumber = psdNumber;
+            return this;
+        }
+
+        fun onPasswordDialogListener(onPasswordDialogListener : OnPasswordDialogListener) : Builder{
+            this.onPasswordDialogListener = onPasswordDialogListener;
             return this;
         }
 
