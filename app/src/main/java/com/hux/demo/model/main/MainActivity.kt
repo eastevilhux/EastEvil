@@ -67,7 +67,12 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
             .builder();
 
 
-        psdDialog = NumberpsdDialog(this);
+        psdDialog = NumberpsdDialog.Builder(this)
+            .title("fuck")
+            .amount("0.12")
+            .typeText("sdfasdfas")
+            .psdNumber(8)
+            .build();
     }
 
     fun onViewClick(view: View){
