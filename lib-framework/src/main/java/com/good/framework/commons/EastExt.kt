@@ -161,4 +161,3 @@ fun cuttingImage(
         uCrop.start(context!!,it);
     }
 }
-

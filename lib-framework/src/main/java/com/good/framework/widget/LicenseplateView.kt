@@ -17,6 +17,7 @@ import com.good.framework.db.LicensePlateDao
 import com.good.framework.http.entity.LicensePlate
 import com.good.framework.widget.popupwindow.AbbreviationPopupWindow
 import com.good.framework.widget.popupwindow.AlphabeticPopupWindow
+import java.lang.StringBuilder
 
 class LicenseplateView : FrameLayout, AbbreviationPopupWindow.OnAbbreviationListener,AlphabeticPopupWindow.OnAlphabeticListener {
     private var dataBinding : LayoutLicenseplateBinding? = null;
@@ -90,8 +91,15 @@ class LicenseplateView : FrameLayout, AbbreviationPopupWindow.OnAbbreviationList
         return dataBinding?.etLicensenum?.text.toString();
     }
 
-    fun getLicenseplateText() : String{
-        return "${dataBinding?.tvAbbreviation!!.text.toString()}${dataBinding?.tvLetter!!.text.toString()}${dataBinding?.etLicensenum!!.text.toString()}"
+    fun getLicenseplateText(havePoint : Boolean = false) : String{
+        var sb = StringBuilder();
+        sb.append(dataBinding?.tvAbbreviation!!.text.toString());
+        sb.append(dataBinding?.tvLetter!!.text.toString());
+        if(havePoint){
+            sb.append("·");
+        }
+        sb.append(dataBinding?.etLicensenum!!.text.toString());
+        return sb.toString();
     }
 
     fun onViewClick(view : View){

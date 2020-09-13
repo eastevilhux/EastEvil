@@ -125,6 +125,15 @@
                 android:layout_height="@dimen/dp_30"
                 android:text="支付密码弹框测试"
                 android:onClick="@{mainac.onViewClick}"/>
+
+
+            <TextView
+                android:id="@+id/tv_msg_dialog"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_30"
+                android:text="消息弹框测试"
+                android:onClick="@{mainac.onViewClick}"/>
+
         </LinearLayout>
 
 

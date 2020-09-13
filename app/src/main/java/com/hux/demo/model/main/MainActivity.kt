@@ -11,6 +11,7 @@ import com.god.uikit.utils.screenSize
 import com.god.uikit.widget.ViewToast
 import com.god.uikit.widget.dialog.CalendarDialog
 import com.god.uikit.widget.dialog.ListDialog
+import com.god.uikit.widget.dialog.MessageDialog
 import com.god.uikit.widget.dialog.NumberpsdDialog
 import com.good.framework.commons.EastConstants
 import com.good.framework.db.LicensePlateDao
@@ -35,6 +36,8 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
     var listDialog : ListDialog? = null;
 
     var psdDialog : NumberpsdDialog? = null;
+
+    var msgDialog : MessageDialog? = null;
 
     override fun getLayoutRes(): Int = R.layout.activity_main;
 
@@ -75,6 +78,13 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
             .psdNumber(3)
             .onPasswordDialogListener(this)
             .build();
+
+        msgDialog = MessageDialog.Builder(this)
+            .title("弹框测试")
+            .message("测试弹框，这里显示的是弹框的message")
+            .enterText("enter")
+            .cancelText("cancel")
+            .build();
     }
 
     fun onViewClick(view: View){
@@ -111,6 +121,9 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
             }
             R.id.tv_psd_dialog->{
                 psdDialog!!.show();
+            }
+            R.id.tv_msg_dialog->{
+                msgDialog!!.show();
             }
         }
     }

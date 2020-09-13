@@ -99,7 +99,7 @@ public class ListDialog extends Dialog implements AdapterView.OnItemClickListene
         if(itemList != null && itemList.size() > 0){
             height = height + (height * (itemList.size()-1));
             height = height + ViewUtil.Companion.dip2px(getContext(),(itemList.size() - 2));
-            height = height + ViewUtil.Companion.dip2px(getContext(),10);
+            height = height + ViewUtil.Companion.dip2px(getContext(),20);
         }
         lp.height = height;
         window.setAttributes(lp);
