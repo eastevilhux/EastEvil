@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="title"
             type="androidx.databinding.ObservableField&lt;String&gt;" />
@@ -21,6 +22,10 @@
         <variable
             name="dialog"
             type="com.god.uikit.widget.dialog.MessageDialog" />
+
+        <variable
+            name="haveCancel"
+            type="androidx.databinding.ObservableField&lt;Boolean&gt;" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -86,7 +91,8 @@
                 android:textColor="@color/colorWhite"
                 android:layout_marginLeft="@dimen/dp_5"
                 android:background="@drawable/bg_button"
-                android:onClick="@{dialog.onViewClick}"/>
+                android:onClick="@{dialog.onViewClick}"
+                android:visibility="@{haveCancel ? View.VISIBLE : View.GONE}"/>
 
         </LinearLayout>
 

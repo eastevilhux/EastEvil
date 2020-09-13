@@ -18,6 +18,7 @@ class MessageDialog private constructor(builder: Builder) : Dialog(builder.conte
     private val message = ObservableField<String>();
     private val enterText = ObservableField<String>();
     private val cancelText = ObservableField<String>();
+    private val haveCancel = ObservableField<Boolean>();
 
 
     private lateinit var dataBinding: DialogMessageBinding;
@@ -31,6 +32,7 @@ class MessageDialog private constructor(builder: Builder) : Dialog(builder.conte
         message.set(builder.message);
         enterText.set(builder.enterText);
         cancelText.set(builder.cancelText);
+        haveCancel.set(builder.haveCancel);
         onDialogListener = builder.onDialogListener;
         dataBinding = DataBindingUtil.inflate(
             layoutInflater, R.layout.dialog_message, null, false
@@ -40,6 +42,7 @@ class MessageDialog private constructor(builder: Builder) : Dialog(builder.conte
         dataBinding.message = message;
         dataBinding.enterText = enterText;
         dataBinding.cancelText = cancelText;
+        dataBinding.haveCancel = haveCancel;
 
         setContentView(dataBinding.root)
 
@@ -88,6 +91,7 @@ class MessageDialog private constructor(builder: Builder) : Dialog(builder.conte
         var enterText : String? = null;
         var cancelText : String? = null;
         var onDialogListener : OnDialogListener? = null;
+        var haveCancel : Boolean = true;
 
         init {
             this.context = context;
@@ -122,6 +126,11 @@ class MessageDialog private constructor(builder: Builder) : Dialog(builder.conte
 
         fun onDialogListener(onDialogListener : OnDialogListener): Builder {
             this.onDialogListener = onDialogListener;
+            return this;
+        }
+
+        fun haveCancel(haveCancel : Boolean): Builder {
+            this.haveCancel = haveCancel;
             return this;
         }
 
