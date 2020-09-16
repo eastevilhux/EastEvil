@@ -106,7 +106,7 @@ abstract class BaseActivity<D : ViewDataBinding,V : EastViewModel<*>> : AppCompa
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event?.action == KeyEvent.ACTION_UP) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
             back();
             return true;
         }
