@@ -7,6 +7,7 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -102,6 +103,22 @@ class ImageDialog(context: Context) : Dialog(context, R.style.DialogStyle),EasyP
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
         myContent?.let { ViewToast.show(it,R.string.per_error_album,Toast.LENGTH_LONG) }
+    }
+
+    fun setImageIcon(@DrawableRes imageRes : Int){
+        dataBinding.ivAlbum.setImageResource(imageRes);
+    }
+
+    fun setCameraIcon(@DrawableRes imageRes: Int){
+        dataBinding.ivCamera.setImageResource(imageRes);
+    }
+
+    fun setIcons(@DrawableRes imageRes : Int = 0,@DrawableRes cameraIcon: Int = 0){
+        if(imageRes != 0)
+            setImageIcon(imageRes)
+        if(cameraIcon != 0){
+            setCameraIcon(cameraIcon);
+        }
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
