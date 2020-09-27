@@ -76,6 +76,27 @@ class MessageDialog private constructor(builder: Builder) : Dialog(builder.conte
         this.tag = tag;
     }
 
+    fun setMessage(message:String){
+        this.message.set(message);
+    }
+
+    fun setTitle(title: String){
+        this.title.set(title)
+    }
+
+    fun setEnter(enterText: String){
+        this.enterText.set(enterText);
+    }
+
+    fun setCancel(cancelText: String){
+        this.cancelText.set(cancelText)
+    }
+
+    fun setButtonText(enterText:String,cancelText: String){
+        this.enterText.set(enterText)
+        this.cancelText.set(cancelText);
+    }
+
     interface OnDialogListener{
 
         fun onCancel();
