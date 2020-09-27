@@ -7,6 +7,7 @@ import com.good.framework.http.commons.Constants
 import com.good.framework.http.entity.Result
 import com.good.framework.utils.AESUtil
 import com.good.framework.utils.Base64Util
+import com.good.framework.utils.LogUtil
 import com.good.framework.utils.RSAUtil
 import com.google.gson.Gson
 import com.google.gson.TypeAdapter
@@ -62,7 +63,9 @@ class EastResponseBodyConverter<T> internal constructor(
             val type: Type = object : TypeToken<T>() {}.type
             var t = gson.fromJson<T>(data,type);
             result.data = t;
-            val reader = StringReader(gson.toJson(result));
+            var gsonData = gson.toJson(result);
+            LogUtil.e(TAG,gsonData);
+            val reader = StringReader(gsonData);
             return adapter.fromJson(reader)
         }else {
             val type: Type = object : TypeToken<Result<T>?>() {}.type
@@ -71,7 +74,9 @@ class EastResponseBodyConverter<T> internal constructor(
             data = URLDecoder.decode(data,HttpConfig.UTF8_CHARSET);
             val s = String(Base64Util.decode(data), HttpConfig.HTTP_CHARSET);
             result.data = gson.fromJson<T>(s,object : TypeToken<T?>() {}.type);
-            val reader = StringReader(gson.toJson(result));
+            var gsonData = gson.toJson(result);
+            LogUtil.e(TAG,gsonData);
+            val reader = StringReader(gsonData);
             return adapter.fromJson(reader)
         }
     }

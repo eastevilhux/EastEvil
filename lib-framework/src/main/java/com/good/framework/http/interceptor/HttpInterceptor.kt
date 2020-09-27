@@ -49,7 +49,6 @@ class HttpInterceptor : Interceptor{
         }
         //读取返回数据
         val bodyString = buffer.clone().readString(charset)
-        Log.d("bodyString==>",bodyString);
         return mResponse
     }
 

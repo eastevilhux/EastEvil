@@ -27,6 +27,10 @@
         <variable
             name="inputLayout"
             type="com.god.uikit.widget.InputLayout" />
+
+        <variable
+            name="isMobile"
+            type="androidx.databinding.ObservableField&lt;Boolean&gt;" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -55,7 +59,23 @@
             android:textColorHint="@color/colorHint"
             android:textSize="@dimen/appTextSize"
             android:hint="@{hintText}"
-            android:background="@null"/>
+            android:background="@null"
+            android:visibility="@{isMobile ? View.GONE : View.VISIBLE}"/>
+
+        <com.god.uikit.widget.PhoneEditText
+            android:id="@+id/phone_editview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/item_menutext"
+            app:layout_constraintEnd_toStartOf="@id/menu_button"
+            android:textColor="@color/colorApp"
+            android:textColorHint="@color/colorHint"
+            android:textSize="@dimen/appTextSize"
+            android:hint="@{hintText}"
+            android:background="@null"
+            android:visibility="@{isMobile ? View.VISIBLE : View.GONE}"/>
 
 
 

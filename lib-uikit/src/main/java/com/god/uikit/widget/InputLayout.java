@@ -114,9 +114,6 @@ public class InputLayout extends FrameLayout implements CountDownTimerButton.OnC
         switch (inputType){
             case 0:
                 break;
-            case 1:
-                dataBinding.inputEditview.setInputType(InputType.TYPE_CLASS_PHONE);
-                break;
             case 2:
                 dataBinding.inputEditview.setInputType(InputType.TYPE_CLASS_NUMBER);
                 break;
