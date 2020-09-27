@@ -33,6 +33,8 @@ public class InputLayout extends FrameLayout implements CountDownTimerButton.OnC
 
     private ObservableField<String> menuText;
 
+    private ObservableField<Boolean> isMobile;
+
     private int itemTextColor;
 
     private int editTextColor;
@@ -64,6 +66,7 @@ public class InputLayout extends FrameLayout implements CountDownTimerButton.OnC
         hintText = new ObservableField<>(ta.getString(R.styleable.InputLayout_hintText));
         haveLine = new ObservableField<>(ta.getBoolean(R.styleable.InputLayout_haveLine,false));
         haveMenu = new ObservableField<>(ta.getBoolean(R.styleable.InputLayout_haveMenu,false));
+        isMobile = new ObservableField<>(ta.getBoolean(R.styleable.InputLayout_isMobile,false));
         if(haveMenu.get()){
             menuText = new ObservableField<>(ta.getString(R.styleable.InputLayout_itemMenuText));
         }
@@ -103,6 +106,7 @@ public class InputLayout extends FrameLayout implements CountDownTimerButton.OnC
         dataBinding.inputEditview.setHintTextColor(hintColor);
         dataBinding.lineText.setBackgroundColor(lineColor);
         dataBinding.setHaveMenu(haveMenu);
+        dataBinding.setIsMobile(isMobile);
         if(menuBack != null){
             dataBinding.menuButton.setBackground(menuBack);
             dataBinding.menuButton.setTextColor(menuColor);
@@ -143,7 +147,11 @@ public class InputLayout extends FrameLayout implements CountDownTimerButton.OnC
     }
 
     public String getInputText(){
-        return dataBinding.inputEditview.getText().toString();
+        if(isMobile.get()){
+            return dataBinding.phoneEditview.getText().toString();
+        }else {
+            return dataBinding.inputEditview.getText().toString();
+        }
     }
 
     @Override

@@ -117,6 +117,7 @@
             <enum name="password" value="3"></enum>
             <enum name="numberPassword" value="4"></enum>
         </attr>
+        <attr name="isMobile" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="ExhibitionLayout">
