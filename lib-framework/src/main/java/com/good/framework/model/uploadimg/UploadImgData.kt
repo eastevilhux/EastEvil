@@ -45,23 +45,4 @@ class UploadImgData :VMData(){
             }
         }
     }
-
-    companion object{
-        const val IMAGE_TYPE_KEY : String = "uploadImgImageType";
-        const val APP_TYPE_KEY : String = "upload_img_app_type";
-        const val ICON_FLAG_KEY : String = "upload_have_icon";
-        const val LOADING_FALG_KEY : String = "upload_img_isload";
-        const val RELATION_ID_KEY : String = "relationId_key";
-        const val IMAGE_WIDTH_KEY : String = "imageWidth_key";
-        const val IMAGE_HEIGHT_KEY : String = "imageheight_key";
-        const val IMAGE_FLAG_KEY : String = "image_falg_key";
-        const val IMAGE_INFO_KEY : String = "image_info_key";
-        const val FILE_PATH_KEY : String = "life_file_key";
-        const val IMAGE_CUTWIDTH_KEY : String = "cut_width_key";
-        const val IMAGE_CUTHEIGHT_KEY : String = "cut_height_key";
-        const val UPLOADIMG_DATA_KEY : String = "uploadimg_data_key";
-        const val PROVINDER_KEY : String = "uploadimg_provinder_key";
-        const val ROOT_PAHT_KEY : String = "uploadimg_root_paht_key";
-        const val CHILD_PATH_KEY : String = "uploadimg_child_path_key";
-    }
 }

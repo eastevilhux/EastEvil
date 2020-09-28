@@ -17,15 +17,14 @@ import com.good.framework.R
 import com.good.framework.commons.BaseActivity
 import com.good.framework.commons.cuttingImage
 import com.good.framework.databinding.ImageActivityBinding
+import com.good.framework.entity.ImageData
 import com.good.framework.entity.VMData
 import com.good.framework.model.camera.CameraData.Companion.RESULT_CODE_CUTTING
 import com.good.framework.model.camera.CameraData.Companion.RESULT_CODE_SETRESULT
 import com.good.framework.model.camera.CameraData.Companion.RESULT_CODE_SHOWIMG
 import com.good.framework.model.uploadimg.UploadImgData
-import com.good.framework.model.uploadimg.UploadImgData.Companion.CHILD_PATH_KEY
-import com.good.framework.model.uploadimg.UploadImgData.Companion.PROVINDER_KEY
-import com.good.framework.model.uploadimg.UploadImgData.Companion.ROOT_PAHT_KEY
 import com.good.framework.model.uploadimg.UploadimgActivity
+import com.good.framework.utils.JsonUtil
 import com.yalantis.ucrop.UCropActivity
 
 class ImageActivity : BaseActivity<ImageActivityBinding, ImageViewModel>(), MenuPresenter {
@@ -35,7 +34,7 @@ class ImageActivity : BaseActivity<ImageActivityBinding, ImageViewModel>(), Menu
     }
 
     private var menuPopup: RightMenuPopupWindow? = null;
-    private var provider : String? = null;
+    private lateinit var imageData: ImageData;
 
     override fun getLayoutRes(): Int = R.layout.image_activity;
 
@@ -44,12 +43,19 @@ class ImageActivity : BaseActivity<ImageActivityBinding, ImageViewModel>(), Menu
     override fun initView() {
         dataBinding?.viewModel = viewModel;
         dataBinding?.titleShowimage!!.onTitleListener = this;
-        intent?.getStringExtra(UploadImgData.FILE_PATH_KEY)?.let { viewModel?.initFile(it) }
-        provider = intent?.getStringExtra(PROVINDER_KEY);
-        var rootPath = intent?.getStringExtra(ROOT_PAHT_KEY);
-        var childPath = intent?.getStringExtra(CHILD_PATH_KEY);
-        viewModel?.rootPath = rootPath;
-        viewModel?.childPath = childPath;
+        var path = intent.getStringExtra(ImageData.FILE_PATH_KEY)
+
+
+        var json = intent.getStringExtra(ImageData.DATA_KEY);
+        if(json == null){
+            showToastShort(R.string.error_system);
+            back();
+            return;
+        }
+        imageData = JsonUtil.instance.getGson().fromJson(json,ImageData::class.java);
+        viewModel?.initFile(path)
+        viewModel?.rootPath = imageData.rootPath;
+        viewModel?.childPath = imageData.childPath;
         menuPopup = RightMenuPopupWindow(this,this,R.string.menu_urcop,R.string.menu_finish)
     }
 
@@ -63,15 +69,15 @@ class ImageActivity : BaseActivity<ImageActivityBinding, ImageViewModel>(), Menu
 
                 }
                 RESULT_CODE_CUTTING->{
-                    if(provider == null || provider?.isEmpty() == true){
+                    if(this.imageData.provider == null || this.imageData.provider?.isEmpty() == true){
                         throw IllegalAccessException("nuknow the provinder");
                     }
                     cuttingImage(this,sourceFilePath = imageData.sourcePath!!,outFilePaht = imageData.outPath!!
-                        ,provider = provider!!)
+                        ,provider = this.imageData.provider!!)
                 }
                 RESULT_CODE_SETRESULT->{
                     var intent = Intent(this,UploadimgActivity::class.java);
-                    intent.putExtra(UploadImgData.FILE_PATH_KEY,imageData.outPath);
+                    intent.putExtra(ImageData.FILE_PATH_KEY,imageData.outPath);
                     startActivity(intent)
                     finish();
                 }

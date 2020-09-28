@@ -17,6 +17,7 @@ import android.view.Surface
 import android.view.SurfaceHolder
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.widget.ViewUtils
 import androidx.core.app.ActivityCompat
 import com.god.uikit.utils.ViewUtil
 import com.god.uikit.utils.screenSize
@@ -24,16 +25,12 @@ import com.god.uikit.widget.LoadingDialog
 import com.god.uikit.widget.ViewToast
 import com.good.framework.R
 import com.good.framework.commons.BaseActivity
+import com.good.framework.commons.toJSON
 import com.good.framework.databinding.CameraActivityBinding
+import com.good.framework.entity.ImageData
 import com.good.framework.entity.VMData
 import com.good.framework.model.uploadimg.UploadImgData
-import com.good.framework.model.uploadimg.UploadImgData.Companion.CHILD_PATH_KEY
-import com.good.framework.model.uploadimg.UploadImgData.Companion.IMAGE_CUTHEIGHT_KEY
-import com.good.framework.model.uploadimg.UploadImgData.Companion.IMAGE_CUTWIDTH_KEY
-import com.good.framework.model.uploadimg.UploadImgData.Companion.IMAGE_HEIGHT_KEY
-import com.good.framework.model.uploadimg.UploadImgData.Companion.IMAGE_WIDTH_KEY
-import com.good.framework.model.uploadimg.UploadImgData.Companion.PROVINDER_KEY
-import com.good.framework.model.uploadimg.UploadImgData.Companion.ROOT_PAHT_KEY
+import com.good.framework.utils.JsonUtil
 import java.util.*
 
 
@@ -60,11 +57,7 @@ class CameraActivity : BaseActivity<CameraActivityBinding, CameraViewModel>(){
 
     var dialog : LoadingDialog? = null;
 
-    private var cameraWidth:Int = 0;
-    private var cameraHeight :Int = 0;
-    private var cutWidth:Int = 0;
-    private var cutHeight :Int = 0;
-    private var provider:String? = null;
+    private lateinit var imageData: ImageData;
 
     override fun getLayoutRes(): Int = R.layout.camera_activity;
 
@@ -73,32 +66,33 @@ class CameraActivity : BaseActivity<CameraActivityBinding, CameraViewModel>(){
     override fun initView() {
         dataBinding?.camerac = this;
 
-        cameraWidth = intent?.getIntExtra(IMAGE_WIDTH_KEY,0)?:0;
-        cameraHeight = intent?.getIntExtra(IMAGE_HEIGHT_KEY,0)?:0;
-        cutWidth = intent?.getIntExtra(IMAGE_CUTWIDTH_KEY,0)?:0;
-        cutHeight = intent?.getIntExtra(IMAGE_CUTHEIGHT_KEY,0)?:0;
-        provider = intent?.getStringExtra(PROVINDER_KEY);
-        var rootPath = intent?.getStringExtra(ROOT_PAHT_KEY);
-        var childPath = intent?.getStringExtra(CHILD_PATH_KEY);
-        viewModel?.rootPath = rootPath;
-        viewModel?.childPath = childPath;
+        var json = intent.getStringExtra(ImageData.DATA_KEY);
+        if(json == null){
+            ViewToast.show(this,R.string.error_system,Toast.LENGTH_SHORT);
+            back();
+            return;
+        }
+        imageData = JsonUtil.instance.getGson().fromJson(json,ImageData::class.java);
 
-        if(cameraWidth == 0 || cameraHeight == 0){
+        viewModel?.rootPath = imageData.rootPath;
+        viewModel?.childPath = imageData.childPath;
+
+        if(imageData.imageWidth == 0 || imageData.cameraHeight == 0){
             var size = screenSize(this);
-            if(cameraWidth == 0){
-                cameraWidth = size[0];
+            if(imageData.cameraWidth == 0){
+                imageData.cameraWidth = size[0];
             }
-            if(cameraHeight == 0){
-                cameraHeight = size[1];
+            if(imageData.cameraHeight == 0){
+                imageData.cameraHeight = size[1];
             }
         }
-        if(cutWidth == 0 || cutHeight == 0){
+        if(imageData.cutWidth == 0 || imageData.cutHeight == 0){
             var size = ViewUtil.getScreenSize(this);
-            if(cutWidth == 0){
-                cutWidth = size[0];
+            if(imageData.cutWidth == 0){
+                imageData.cutWidth = size[0];
             }
-            if(cutHeight == 0){
-                cutHeight = cutWidth;
+            if(imageData.cutHeight == 0){
+                imageData.cutHeight = size[1];
             }
         }
         dialog = LoadingDialog(this);
@@ -140,7 +134,8 @@ class CameraActivity : BaseActivity<CameraActivityBinding, CameraViewModel>(){
         mainHandler = Handler(getMainLooper());
         mCameraID = "" + CameraCharacteristics.LENS_FACING_FRONT;//后摄像头
 
-        mImageReader = ImageReader.newInstance(cameraWidth, cameraHeight, ImageFormat.JPEG,1);
+        mImageReader = ImageReader.newInstance(imageData.cameraWidth, imageData.cameraHeight,
+            ImageFormat.JPEG,1);
         mImageReader?.setOnImageAvailableListener(OnImageAvailableListener { reader ->
 
             //可以在这里处理拍照得到的临时照片 例如，写入本地
@@ -289,12 +284,9 @@ class CameraActivity : BaseActivity<CameraActivityBinding, CameraViewModel>(){
                 dialog?.dismiss();
                 viewModel?.filePath?.let {
                     var intent = Intent(this,ImageActivity::class.java);
-                    intent.putExtra(UploadImgData.FILE_PATH_KEY,it);
-                    intent.putExtra(IMAGE_CUTWIDTH_KEY,cutWidth);
-                    intent.putExtra(IMAGE_CUTHEIGHT_KEY,cutHeight);
-                    intent.putExtra(PROVINDER_KEY,provider);
-                    intent.putExtra(ROOT_PAHT_KEY,viewModel?.rootPath);
-                    intent.putExtra(CHILD_PATH_KEY,viewModel?.childPath);
+                    intent.putExtra(ImageData.FILE_PATH_KEY,it);
+                    var json = imageData.toJSON();
+                    intent.putExtra(ImageData.DATA_KEY,json);
                     startActivity(intent)
                     finish();
                     mCameraDevice?.close();

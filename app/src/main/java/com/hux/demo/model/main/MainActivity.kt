@@ -92,12 +92,12 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
             R.id.tv_camera_upload->{
                 var data = ImageData();
                 data.iconFlag = true;
-                data.imageFlag = true;
                 data.imageWidth = screenSize(this)[0];
-                data.imageHeight = 120;
+                data.imageHeight = 500;
+                data.titleColor = R.color.colorAccent
                 data.imageType = UploadImgData.ImageType.TYPE_SPLASH;
                 data.appType = UploadImgData.AppType.APP_LIFEHOUSE;
-                data.imageListFlag = true;
+                data.imageListFlag = false;
                 data.rootPath = "what";
                 data.childPath = "fuck";
                 toUploadImage(this,data,"com.hux.demo");

@@ -9,18 +9,11 @@ import android.os.Looper
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import com.god.uikit.commons.Constants.Companion.REQEUST_CODE_ALBUM
 import com.god.uikit.commons.Constants.Companion.REQUEST_CODE_CUTTING
 import com.good.framework.R
+import com.good.framework.entity.ImageData
 import com.good.framework.http.commons.Constants
 import com.good.framework.model.camera.CameraActivity
-import com.good.framework.model.uploadimg.UploadImgData.Companion.CHILD_PATH_KEY
-import com.good.framework.model.uploadimg.UploadImgData.Companion.IMAGE_CUTHEIGHT_KEY
-import com.good.framework.model.uploadimg.UploadImgData.Companion.IMAGE_CUTWIDTH_KEY
-import com.good.framework.model.uploadimg.UploadImgData.Companion.IMAGE_HEIGHT_KEY
-import com.good.framework.model.uploadimg.UploadImgData.Companion.IMAGE_WIDTH_KEY
-import com.good.framework.model.uploadimg.UploadImgData.Companion.PROVINDER_KEY
-import com.good.framework.model.uploadimg.UploadImgData.Companion.ROOT_PAHT_KEY
 import com.good.framework.utils.AESUtil
 import com.good.framework.utils.JsonUtil
 import com.good.framework.utils.RSAUtil
@@ -73,13 +66,7 @@ fun String.encryptData(): String? {
 fun takePhoto(
     activity: Activity? = null,
     fragment: Fragment? = null,
-    width: Int = 0,
-    height: Int = 0,
-    cutWidth: Int = 0,
-    cutHeight: Int = 0,
-    provinder:String,
-    rootPaht : String,
-    childPath : String
+    imageData: ImageData
 ) {
     if (activity == null && fragment == null) {
         throw IllegalAccessException("no content fond");
@@ -88,13 +75,8 @@ fun takePhoto(
         throw IllegalAccessException("unknow witch onw to choose content");
     }
     var intent = Intent(activity, CameraActivity::class.java);
-    intent.putExtra(IMAGE_WIDTH_KEY, width);
-    intent.putExtra(IMAGE_HEIGHT_KEY, height);
-    intent.putExtra(IMAGE_CUTWIDTH_KEY, cutWidth);
-    intent.putExtra(IMAGE_CUTHEIGHT_KEY, cutHeight);
-    intent.putExtra(PROVINDER_KEY,provinder);
-    intent.putExtra(ROOT_PAHT_KEY,rootPaht);
-    intent.putExtra(CHILD_PATH_KEY,childPath);
+    var json = imageData.toJSON();
+    intent.putExtra(ImageData.DATA_KEY, json);
     activity?.let {
         it.startActivityForResult(intent, com.god.uikit.commons.Constants.REQEUST_CODE_CAMERA)
     }

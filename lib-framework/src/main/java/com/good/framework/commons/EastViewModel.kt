@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import com.good.framework.R
 import com.good.framework.entity.Error
 import com.good.framework.entity.ErrorType
+import com.good.framework.entity.ImageData
 import com.good.framework.entity.VMData
 import com.good.framework.http.HttpConfig
 

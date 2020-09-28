@@ -23,7 +23,7 @@ public class ViewAttAdapter {
                     .placeholder(R.drawable.icon_full_screen_nodata_img)
                     .error(R.drawable.icon_full_screen_nodata_img))
                     .into(view);
-        }else if(view.getId() == R.id.iv_image){
+        }/*else if(view.getId() == R.id.iv_image){
             Log.d(TAG,"FILE=>");
                 Glide.with(view)
                         .load(file)
@@ -31,6 +31,6 @@ public class ViewAttAdapter {
                                 .placeholder(R.drawable.ic_upload_image_default)
                                 .error(R.drawable.ic_upload_image_default))
                         .into(view);
-        }
+        }*/
     }
 }
