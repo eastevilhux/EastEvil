@@ -41,7 +41,7 @@
             app:layout_constraintTop_toBottomOf="@id/title_uploadimg"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/icon_no_data_default"
+            android:src="@{viewModel.iconImage}"
             android:layout_marginTop="@dimen/dp_30"
             android:visibility="@{viewModel.imageData.iconFlag ? View.VISIBLE : View.GONE}"
             android:onClick="@{uploadac.viewClick}"/>

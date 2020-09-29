@@ -7,6 +7,7 @@ import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.god.uikit.entity.Image;
 import com.good.framework.R;
 
 import java.io.File;
@@ -32,5 +33,26 @@ public class ViewAttAdapter {
                                 .error(R.drawable.ic_upload_image_default))
                         .into(view);
         }*/
+    }
+
+    @BindingAdapter("android:src")
+    public static void setImage(ImageView view, Image image){
+        if(view.getId() == R.id.iv_icon){
+            switch (image.getType()){
+                case TYPE_DEFAULT:
+                    Glide.with(view)
+                            .load(image.getResource())
+                            .apply(new RequestOptions()
+                            .error(R.drawable.ic_upload_image_default)
+                                    .placeholder(R.drawable.ic_upload_image_default)
+                            .into(view);
+                    break;
+                case TYPE_RESOURCE:
+                case TYPE_FILE:
+                case TYPE_URL:
+                default:
+                    break;
+            }
+        }
     }
 }

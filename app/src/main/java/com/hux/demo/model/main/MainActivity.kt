@@ -94,10 +94,11 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
                 data.iconFlag = true;
                 data.imageWidth = screenSize(this)[0];
                 data.imageHeight = 500;
+                data.albumBtnRes = R.drawable.ic_photo_camera_white_24dp
                 data.titleColor = R.color.colorAccent
                 data.imageType = UploadImgData.ImageType.TYPE_SPLASH;
                 data.appType = UploadImgData.AppType.APP_LIFEHOUSE;
-                data.imageListFlag = false;
+                data.imageListFlag = true;
                 data.rootPath = "what";
                 data.childPath = "fuck";
                 toUploadImage(this,data,"com.hux.demo");

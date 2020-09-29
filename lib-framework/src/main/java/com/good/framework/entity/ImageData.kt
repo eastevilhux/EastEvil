@@ -22,6 +22,8 @@ class ImageData :Serializable{
     var cameraHeight : Int = 0;
     var cutWidth : Int = 0;
     var cutHeight : Int = 0;
+    var albumBtnRes : Int = R.drawable.icon_img_dialog_album;
+    var cameraBtnRes : Int = R.drawable.icon_img_dialog_camera;
 
     companion object{
         const val IMAGE_SIZE_DEFAULT = 8;
