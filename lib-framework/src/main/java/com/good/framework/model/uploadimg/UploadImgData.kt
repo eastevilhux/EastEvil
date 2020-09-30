@@ -4,6 +4,23 @@ import com.good.framework.entity.VMData
 import java.io.Serializable
 
 class UploadImgData :VMData(){
+
+    var cutWidth : Float = 0f;
+    var cutHeight : Float = 0f;
+    //需要裁剪的源数据
+    var sourceFilePath : String? = null;
+    //裁剪后的图片路径
+    var cutFilePath : String? = null;
+    var provider : String? = null;
+
+    var iconFilePath : String? = null;
+    var imageListPath : String? = null;
+
+    companion object{
+        const val CODE_TO_CUTTING = 0x01;
+        const val CODE_TO_UPLOAD = 0x02;
+    }
+
     enum class ImageType(private val type: Int){
         TYPE_ERROR(0),
         TYPE_SPLASH(0x01),

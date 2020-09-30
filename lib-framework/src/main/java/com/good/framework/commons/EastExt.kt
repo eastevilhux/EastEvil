@@ -88,11 +88,11 @@ fun takePhoto(
 fun cuttingImage(
     activity: Activity? = null,
     fragment: Fragment? = null,
-    sourceFilePath : String,
-    outFilePaht : String,
-    aspectRatioX : Float = 16f,
-    aspectRatioY : Float = 9f,
-    provider : String
+    sourceFilePath: String,
+    outFilePaht: String,
+    aspectRatioX: Float = 16f,
+    aspectRatioY: Float = 9f,
+    provider: String
 ) {
     if (activity == null && fragment == null) {
         throw IllegalAccessException("no content fond");

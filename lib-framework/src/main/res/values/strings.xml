@@ -3,4 +3,5 @@
     <string name="choose_not_allow">已超出选择数量</string>
     <string name="please_select_abbreviation">请选择省份简称</string>
     <string name="title_citylist">城市列表</string>
+    <string name="cutting_error">图片裁剪失败</string>
 </resources>

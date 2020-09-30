@@ -3,6 +3,7 @@ package com.hux.demo.model.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -99,8 +100,10 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
                 data.imageType = UploadImgData.ImageType.TYPE_SPLASH;
                 data.appType = UploadImgData.AppType.APP_LIFEHOUSE;
                 data.imageListFlag = true;
-                data.rootPath = "what";
-                data.childPath = "fuck";
+                data.cutWidth = 50f;
+                data.cutHeight = 50f;
+                data.rootPath = "whathux";
+                data.childPath = "fuck_what";
                 toUploadImage(this,data,"com.hux.demo");
             }
             R.id.iv_text_image->{
@@ -138,6 +141,13 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
                     var city = data?.getSerializableExtra(EastConstants.KEY_CITY) as City?;
                     var area = data?.getSerializableExtra(EastConstants.KEY_AREA) as City?;
                     showToastShort(province?.name+ city?.name + area?.name);
+                }
+            }
+            EastConstants.RESULT_CODE_IMAGE->{
+                data?.let {
+                    var iconFile = data?.getStringExtra(ImageData.ICON_KEY);
+                    var imageList = data?.getStringExtra(ImageData.IMAGE_LIST_KEY);
+                    Log.d("main==>","${iconFile}${imageList}")
                 }
             }
         }

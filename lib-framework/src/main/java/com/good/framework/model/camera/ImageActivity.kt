@@ -1,17 +1,11 @@
 package com.good.framework.model.camera
 
-import android.app.Activity
 import android.content.Intent
 import android.util.Log
-import android.view.Gravity
-import androidx.lifecycle.Observer
-import com.god.uikit.commons.Constants
-import com.god.uikit.commons.Constants.Companion.REQEUST_CODE_ALBUM
 import com.god.uikit.commons.Constants.Companion.REQUEST_CODE_CUTTING
 import com.god.uikit.entity.Item
 import com.god.uikit.presenter.MenuPresenter
 import com.god.uikit.utils.isEmpty
-import com.god.uikit.widget.LoadingDialog
 import com.god.uikit.widget.window.RightMenuPopupWindow
 import com.good.framework.R
 import com.good.framework.commons.BaseActivity
@@ -22,7 +16,6 @@ import com.good.framework.entity.VMData
 import com.good.framework.model.camera.CameraData.Companion.RESULT_CODE_CUTTING
 import com.good.framework.model.camera.CameraData.Companion.RESULT_CODE_SETRESULT
 import com.good.framework.model.camera.CameraData.Companion.RESULT_CODE_SHOWIMG
-import com.good.framework.model.uploadimg.UploadImgData
 import com.good.framework.model.uploadimg.UploadimgActivity
 import com.good.framework.utils.JsonUtil
 import com.yalantis.ucrop.UCropActivity
@@ -57,6 +50,8 @@ class ImageActivity : BaseActivity<ImageActivityBinding, ImageViewModel>(), Menu
         viewModel?.rootPath = imageData.rootPath;
         viewModel?.childPath = imageData.childPath;
         menuPopup = RightMenuPopupWindow(this,this,R.string.menu_urcop,R.string.menu_finish)
+
+        dataBinding?.titleShowimage!!.setBackgroundResource(imageData.titleColor);
     }
 
 
@@ -72,8 +67,9 @@ class ImageActivity : BaseActivity<ImageActivityBinding, ImageViewModel>(), Menu
                     if(this.imageData.provider == null || this.imageData.provider?.isEmpty() == true){
                         throw IllegalAccessException("nuknow the provinder");
                     }
-                    cuttingImage(this,sourceFilePath = imageData.sourcePath!!,outFilePaht = imageData.outPath!!
-                        ,provider = this.imageData.provider!!)
+                    cuttingImage(this, sourceFilePath = imageData.sourcePath!!, outFilePaht = imageData.outPath!!
+                        , provider = this.imageData.provider!!,aspectRatioY = this.imageData.cutHeight,
+                        aspectRatioX = this.imageData.cutWidth)
                 }
                 RESULT_CODE_SETRESULT->{
                     var intent = Intent(this,UploadimgActivity::class.java);

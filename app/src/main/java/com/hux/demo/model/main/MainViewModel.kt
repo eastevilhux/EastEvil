@@ -12,6 +12,7 @@ import com.hux.demo.commons.TestApp
 import com.hux.demo.constans.AppModel
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.io.File
 
 class MainViewModel(application: Application) : AppViewModel<MainData>(application) {
     private val appModel =  AppModel.instance;
@@ -35,5 +36,10 @@ class MainViewModel(application: Application) : AppViewModel<MainData>(applicati
         mainThread {
             beforDate.value = HttpConfig.CODE_SUCCESS;
         }
+    }
+
+
+    fun uploadeImage(iconFile : File?, imageList : MutableList<File>?){
+        Log.d("WHAT?","ASDFASDF");
     }
 }

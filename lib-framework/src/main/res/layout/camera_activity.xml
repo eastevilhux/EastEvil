@@ -13,6 +13,7 @@
         android:layout_height="match_parent"
         android:background="@color/colorMainBg">
 
+
         <SurfaceView
             android:id="@+id/sf_camera"
             android:layout_width="0dp"

@@ -74,6 +74,7 @@ class CameraActivity : BaseActivity<CameraActivityBinding, CameraViewModel>(){
         }
         imageData = JsonUtil.instance.getGson().fromJson(json,ImageData::class.java);
 
+
         viewModel?.rootPath = imageData.rootPath;
         viewModel?.childPath = imageData.childPath;
 
@@ -86,13 +87,13 @@ class CameraActivity : BaseActivity<CameraActivityBinding, CameraViewModel>(){
                 imageData.cameraHeight = size[1];
             }
         }
-        if(imageData.cutWidth == 0 || imageData.cutHeight == 0){
+        if(imageData.cutWidth.toInt() == 0 || imageData.cutHeight.toInt() == 0){
             var size = ViewUtil.getScreenSize(this);
-            if(imageData.cutWidth == 0){
-                imageData.cutWidth = size[0];
+            if(imageData.cutWidth.toInt() == 0){
+                imageData.cutWidth = size[0].toFloat();
             }
-            if(imageData.cutHeight == 0){
-                imageData.cutHeight = size[1];
+            if(imageData.cutHeight.toInt() == 0){
+                imageData.cutHeight = size[1].toFloat();
             }
         }
         dialog = LoadingDialog(this);

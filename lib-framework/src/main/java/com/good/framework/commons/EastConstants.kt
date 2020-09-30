@@ -8,5 +8,6 @@ class EastConstants {
         const val KEY_AREA : String = "area"
 
         const val RESULT_CODE_CITY = 0x80;
+        const val RESULT_CODE_IMAGE = 0x12;
     }
 }
