@@ -134,6 +134,15 @@
                 android:text="消息弹框测试"
                 android:onClick="@{mainac.onViewClick}"/>
 
+            <com.god.uikit.widget.InputLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                app:itemText="@string/constant_mobile"
+                app:hintText="@string/hint_constant_mobile"
+                android:layout_marginTop="@dimen/dp_10"
+                app:inputType="mobile"
+                app:isMobile="true"/>
+
         </LinearLayout>
 
 

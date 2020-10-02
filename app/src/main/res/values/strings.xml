@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">LibDemo</string>
+    <string name="constant_mobile">手机号码</string>
+    <string name="hint_constant_mobile">请输入手机号码</string>
 </resources>

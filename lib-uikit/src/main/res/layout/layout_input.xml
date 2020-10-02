@@ -47,36 +47,41 @@
             android:text="@{itemText}"/>
 
 
-        <EditText
-            android:id="@+id/input_editview"
+        <LinearLayout
+            android:id="@+id/edit_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/item_menutext"
             app:layout_constraintEnd_toStartOf="@id/menu_button"
-            android:textColor="@color/colorApp"
-            android:textColorHint="@color/colorHint"
-            android:textSize="@dimen/appTextSize"
-            android:hint="@{hintText}"
-            android:background="@null"
-            android:visibility="@{isMobile ? View.GONE : View.VISIBLE}"/>
+            android:orientation="vertical">
 
-        <com.god.uikit.widget.PhoneEditText
-            android:id="@+id/phone_editview"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/item_menutext"
-            app:layout_constraintEnd_toStartOf="@id/menu_button"
-            android:textColor="@color/colorApp"
-            android:textColorHint="@color/colorHint"
-            android:textSize="@dimen/appTextSize"
-            android:hint="@{hintText}"
-            android:background="@null"
-            android:visibility="@{isMobile ? View.VISIBLE : View.GONE}"/>
+            <EditText
+                android:id="@+id/input_editview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorApp"
+                android:textColorHint="@color/colorHint"
+                android:textSize="@dimen/appTextSize"
+                android:hint="@{hintText}"
+                android:background="@null"
+                android:visibility="@{isMobile ? View.GONE : View.VISIBLE}"/>
 
+            <com.god.uikit.widget.PhoneEditText
+                android:id="@+id/phone_editview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dp_20"
+                android:textColor="@color/colorApp"
+                android:textColorHint="@color/colorHint"
+                android:textSize="@dimen/appTextSize"
+                android:hint="@{hintText}"
+                android:background="@null"
+                android:visibility="@{isMobile ? View.VISIBLE : View.GONE}"/>
+
+        </LinearLayout>
 
 
         <com.god.uikit.widget.CountDownTimerButton
@@ -87,7 +92,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/input_editview"
+            app:layout_constraintStart_toEndOf="@id/edit_layout"
             android:layout_marginLeft="@dimen/margin5"
             android:textSize="@dimen/appTextSize"
             android:background="@drawable/bg_button"
