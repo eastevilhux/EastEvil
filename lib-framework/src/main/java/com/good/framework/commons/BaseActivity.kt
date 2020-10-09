@@ -17,6 +17,7 @@ import com.god.uikit.widget.ViewToast
 import com.good.framework.R
 import com.good.framework.entity.Error
 import com.good.framework.entity.ErrorType
+import com.good.framework.entity.SuccessResult
 import com.good.framework.entity.VMData
 import pub.devrel.easypermissions.EasyPermissions
 
@@ -67,6 +68,10 @@ abstract class BaseActivity<D : ViewDataBinding,V : EastViewModel<*>> : AppCompa
             }
         })
 
+        viewModel?.success?.observe(this, Observer {
+            success(it);
+        })
+
         intent?.let {
             initIntentData(it);
         }
@@ -103,6 +108,10 @@ abstract class BaseActivity<D : ViewDataBinding,V : EastViewModel<*>> : AppCompa
 
     override fun onBack() {
         back()
+    }
+
+    open fun success(result:SuccessResult){
+
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
