@@ -44,7 +44,7 @@ class MainViewModel(application: Application) : AppViewModel<MainData>(applicati
 
     private fun test() = GlobalScope.launch{
         var result = appModel.test();
-        Log.d("fuck===>",result.data?:"111");
+        Log.d("fuck===>","${result.data?.test1},${result.data?.test2},${result.data?.test3}");
     }
 
 

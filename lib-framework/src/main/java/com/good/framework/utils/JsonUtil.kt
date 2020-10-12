@@ -1,5 +1,7 @@
 package com.good.framework.utils
 
+import android.util.Log
+import androidx.annotation.StringDef
 import com.google.gson.*
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -31,8 +33,8 @@ class JsonUtil private constructor(){
             gsonBuilder.registerTypeAdapter(Timestamp::class.java, TimestampTypeAdapter())
             gsonBuilder.registerTypeAdapter(Int::class.java, IntegerDefaultAdapter())
             gsonBuilder.registerTypeAdapter(Double::class.java, DoubleDefaultAdapter())
+            gsonBuilder.registerTypeAdapter(String::class.java,StringDefaultAdapter());
             gsonBuilder.create()
-
         }
 
         val instance : JsonUtil by lazy (mode = LazyThreadSafetyMode.SYNCHRONIZED){
@@ -89,11 +91,30 @@ class JsonUtil private constructor(){
         @Throws(IOException::class)
         override fun read(jsonReader: JsonReader): Int {
             return try {
-                Integer.valueOf(jsonReader.nextString())
+                var s = jsonReader.nextString();
+                Log.d("Integer===>",s)
+                Integer.valueOf(s);
             } catch (e: NumberFormatException) {
                 e.printStackTrace()
                 -1
             }
+        }
+    }
+
+
+    private class StringDefaultAdapter : TypeAdapter<String?>() {
+        @Throws(IOException::class)
+        override fun write(jsonWriter: JsonWriter, str: String?) {
+            if (str.isNullOrEmpty()) {
+                jsonWriter.value("")
+            } else {
+                jsonWriter.value(str)
+            }
+        }
+
+        @Throws(IOException::class)
+        override fun read(jsonReader: JsonReader): String {
+            return jsonReader.nextString().toString();
         }
     }
 
