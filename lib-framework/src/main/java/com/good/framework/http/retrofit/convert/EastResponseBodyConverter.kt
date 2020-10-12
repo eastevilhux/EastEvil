@@ -36,10 +36,12 @@ class EastResponseBodyConverter<T> internal constructor(
         Log.d(TAG,data);
         var json = JSONObject(data);
         var code = json.optInt("code");
+        Log.d(TAG,code.toString());
         if(code != HttpConfig.CODE_SUCCESS){
             return adapter.fromJson(data);
         }
         var encryption = json.optBoolean("encryption")?:false;
+        Log.d(TAG,encryption.toString());
         if(encryption){
             data = json.optString("data");
             if(data.isEmpty()){
@@ -47,11 +49,13 @@ class EastResponseBodyConverter<T> internal constructor(
             }
             data = URLDecoder.decode(data,HttpConfig.UTF8_CHARSET);
             Constants.serviceKey?.let {
+                Log.d(TAG,Constants.decrypType.toString());
                 when(Constants.decrypType){
                     Constants.DecrypType.DECRYPT_RSA -> data = RSAUtil.decryptByPublicKey(data,it)
                     Constants.DecrypType.DECRYPT_AES -> data = Constants.serviceKey?.let { AESUtil.aesDecrypt(data, it) };
                 }
             }
+            Log.d(TAG,data);
             var result = Result<T>();
             result.code = code;
             result.state = json.optBoolean("state");
@@ -59,15 +63,7 @@ class EastResponseBodyConverter<T> internal constructor(
             result.msg = json.optString("msg");
             result.tag = json.optString("tag");
             val type: Type = object : TypeToken<T>() {}.type
-            var t: T?;
-            Log.d(TAG,"dataisjson===>${data}")
-            if(data.isJson()){
-                Log.d(TAG,"isjson_what==>${data}")
-                t = gson.fromJson<T>(data,type);
-            }else{
-                Log.d(TAG,"not_json_what==>${data}")
-                t = data as T;
-            }
+            var t = gson.fromJson<T>(data,type);
             result.data = t;
             var gsonData = gson.toJson(result);
             LogUtil.e(TAG,gsonData);
