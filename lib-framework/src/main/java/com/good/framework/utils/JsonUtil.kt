@@ -1,28 +1,24 @@
 package com.good.framework.utils
 
 import android.util.Log
-import androidx.annotation.StringDef
 import com.google.gson.*
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.google.gson.JsonParseException
+import com.google.gson.internal.LinkedTreeMap
+import com.google.gson.stream.JsonReader
+import com.google.gson.stream.JsonToken
+import com.google.gson.stream.JsonWriter
+import java.io.IOException
+import java.lang.reflect.Type
+import java.sql.Timestamp
+import java.text.DateFormat
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.MutableList
+import kotlin.collections.MutableMap
+import kotlin.collections.set
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
-import com.google.gson.TypeAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 
 class JsonUtil private constructor(){
 
@@ -30,10 +26,7 @@ class JsonUtil private constructor(){
         private val gson : Gson by lazy (mode = LazyThreadSafetyMode.SYNCHRONIZED ){
             val gsonBuilder = GsonBuilder()
             gsonBuilder.setDateFormat("yyyy-MM-dd hh:mm:ss")
-            gsonBuilder.registerTypeAdapter(Timestamp::class.java, TimestampTypeAdapter())
-            gsonBuilder.registerTypeAdapter(Int::class.java, IntegerDefaultAdapter())
-            gsonBuilder.registerTypeAdapter(Double::class.java, DoubleDefaultAdapter())
-            gsonBuilder.registerTypeAdapter(String::class.java,StringDefaultAdapter());
+            gsonBuilder.registerTypeAdapter(Any::class.java,AnyTypeAdapter())
             gsonBuilder.create()
         }
 
@@ -138,4 +131,72 @@ class JsonUtil private constructor(){
             }
         }
     }
+
+
+    class AnyTypeAdapter : TypeAdapter<Any?>() {
+        private val delegate =
+            Gson().getAdapter(Any::class.java)
+
+        @Throws(IOException::class)
+        override fun read(`in`: JsonReader): Any? {
+            val token: JsonToken = `in`.peek()
+            return when (token) {
+                JsonToken.BEGIN_ARRAY -> {
+                    val list: MutableList<Any?> = ArrayList()
+                    `in`.beginArray()
+                    while (`in`.hasNext()) {
+                        list.add(read(`in`))
+                    }
+                    `in`.endArray()
+                    list
+                }
+                JsonToken.BEGIN_OBJECT -> {
+                    val map: MutableMap<String, Any?> =
+                        LinkedTreeMap()
+                    `in`.beginObject()
+                    while (`in`.hasNext()) {
+                        map[`in`.nextName()] = read(`in`)
+                    }
+                    `in`.endObject()
+                    map
+                }
+                JsonToken.STRING -> `in`.nextString()
+                JsonToken.NUMBER -> {
+                    /**
+                     * 改写数字的处理逻辑，将数字值分为整型与浮点型。
+                     */
+                    val dbNum = `in`.nextDouble()
+
+                    // 数字超过long的最大值，返回浮点类型
+                    if (dbNum > Long.MAX_VALUE) {
+                        return dbNum.toString()
+                    }
+
+                    // 判断数字是否为整数值
+                    val lngNum = dbNum.toLong()
+                    if (dbNum == lngNum.toDouble()) {
+                        lngNum.toString()
+                    } else {
+                        dbNum.toString()
+                    }
+                }
+                JsonToken.BOOLEAN -> `in`.nextBoolean()
+                JsonToken.NULL -> {
+                    `in`.nextNull()
+                    null
+                }
+                else -> throw IllegalStateException()
+            }
+        }
+
+        @Throws(IOException::class)
+        override fun write(
+            out: JsonWriter,
+            value: Any?
+        ) {
+            delegate.write(out, value)
+        }
+    }
+
+
 }
