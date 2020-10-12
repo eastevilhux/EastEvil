@@ -4,7 +4,6 @@ import com.good.framework.http.interceptor.HttpInterceptor;
 import com.good.framework.http.interceptor.LogInterceptor;
 import com.good.framework.http.retrofit.adapter.EastCallAdapterFactory;
 import com.good.framework.http.retrofit.convert.EastConverterFactory;
-import com.good.framework.http.service.BaseService;
 import com.good.framework.utils.JsonUtil;
 
 import java.util.HashMap;
