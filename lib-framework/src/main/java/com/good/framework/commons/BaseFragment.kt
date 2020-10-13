@@ -64,6 +64,14 @@ abstract open class BaseFragment<D : ViewDataBinding,V : EastViewModel<*>> : Fra
                 }
             }
         })
+
+        viewModel.loading.observe(this, Observer {
+            if(it){
+                getBaseActivity()?.showLoading();
+            }else{
+                getBaseActivity()?.dismissLoading();
+            }
+        })
     }
 
     abstract fun getLayoutRes():Int;
@@ -84,6 +92,13 @@ abstract open class BaseFragment<D : ViewDataBinding,V : EastViewModel<*>> : Fra
 
     open fun reqeustError(error:Error){
 
+    }
+
+    fun getBaseActivity() : BaseActivity<*,*>?{
+        if(activity is BaseActivity<*,*>){
+            return activity as BaseActivity<*, *>;
+        }
+        return null;
     }
 
 
