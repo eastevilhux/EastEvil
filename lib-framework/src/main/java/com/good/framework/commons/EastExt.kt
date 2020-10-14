@@ -17,6 +17,8 @@ import com.good.framework.model.camera.CameraActivity
 import com.good.framework.utils.AESUtil
 import com.good.framework.utils.JsonUtil
 import com.good.framework.utils.RSAUtil
+import com.google.gson.JsonElement
+import com.google.gson.JsonParser
 import com.yalantis.ucrop.UCrop
 import com.yalantis.ucrop.UCropActivity
 import kotlinx.coroutines.Dispatchers
@@ -142,4 +144,18 @@ fun cuttingImage(
     fragment?.let {
         uCrop.start(context!!,it);
     }
+}
+
+
+fun String.isJson() : Boolean{
+    val jsonElement: JsonElement?
+    try {
+        jsonElement = JsonParser().parse(this)
+    } catch (e: Exception) {
+        return false
+    }
+    if (jsonElement == null) {
+        return false
+    }
+    return jsonElement.isJsonObject
 }

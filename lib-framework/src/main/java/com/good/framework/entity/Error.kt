@@ -6,6 +6,7 @@ class Error {
     var code : Int = 0;
     var type : ErrorType = ErrorType.ERROR_DEFAULT;
     var msg : String? = "unknow error";
+    var index : Int = 1;
 
     companion object{
         const val CODE_SUCCESS = 66;

@@ -2,6 +2,8 @@ package com.good.framework.http.retrofit.convert
 
 import android.annotation.SuppressLint
 import android.util.Log
+import com.good.framework.commons.isJson
+import com.good.framework.commons.toJSON
 import com.good.framework.http.HttpConfig
 import com.good.framework.http.commons.Constants
 import com.good.framework.http.entity.Result
@@ -73,7 +75,11 @@ class EastResponseBodyConverter<T> internal constructor(
             data = result.data.toString();
             data = URLDecoder.decode(data,HttpConfig.UTF8_CHARSET);
             val s = String(Base64Util.decode(data), HttpConfig.HTTP_CHARSET);
-            result.data = gson.fromJson<T>(s,object : TypeToken<T?>() {}.type);
+            if(s.isJson()){
+                result.data = gson.fromJson<T>(s,object : TypeToken<T?>() {}.type);
+            }else{
+                result.data = s as T;
+            }
             var gsonData = gson.toJson(result);
             LogUtil.e(TAG,gsonData);
             val reader = StringReader(gsonData);

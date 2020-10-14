@@ -99,7 +99,7 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
                 data.titleColor = R.color.colorAccent
                 data.imageType = UploadImgData.ImageType.TYPE_SPLASH;
                 data.appType = UploadImgData.AppType.APP_LIFEHOUSE;
-                data.imageListFlag = true;
+                data.imageListFlag = false;
                 data.cutWidth = 50f;
                 data.cutHeight = 50f;
                 data.rootPath = "whathux";

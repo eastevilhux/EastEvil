@@ -5,6 +5,7 @@ import com.good.framework.http.RetrofitConfigure
 import com.good.framework.http.RetrofitFactory
 import com.good.framework.http.entity.Result
 import com.good.framework.http.service.BaseService
+import com.hux.demo.entity.Test
 import com.hux.demo.services.AccountService
 import com.hux.demo.services.TestService
 
@@ -48,7 +49,7 @@ class AppModel private constructor(){
         return baseService.appBeforehand();
     }
 
-    fun test(): Result<String> {
+    fun test(): Result<Test> {
         return accountService.test();
     }
 }

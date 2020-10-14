@@ -1,7 +1,5 @@
 package com.good.framework.http.interceptor;
 
-import android.util.Log;
-
 import com.good.framework.commons.EastExtKt;
 import com.good.framework.utils.JsonUtil;
 import com.good.framework.utils.LogUtil;
@@ -13,7 +11,6 @@ import java.util.Map;
 import java.util.Set;
 
 import okhttp3.FormBody;
-import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 

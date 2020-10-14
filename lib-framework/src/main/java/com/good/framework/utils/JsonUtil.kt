@@ -10,7 +10,7 @@ class JsonUtil private constructor(){
             val gsonBuilder = GsonBuilder()
                 .enableComplexMapKeySerialization()
                 .setPrettyPrinting()
-                gsonBuilder.create();
+            gsonBuilder.create();
 
         }
 
