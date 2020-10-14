@@ -27,6 +27,8 @@ abstract class EastViewModel<T:VMData?>(application: Application) : BaseViewMode
 
     open fun initOnFragmentActivityCreate(){
         vmData.value = initData();
+        vmData.value!!.code = VMData.Code.CODE_DEFAULT;
+        loading.value = false;
     }
 
     fun postVMData(vmData: T){
