@@ -66,10 +66,8 @@ abstract open class BaseFragment<D : ViewDataBinding,V : EastViewModel<*>> : Fra
             }
         })
 
-        viewModel.vmData.let {
-            it.value?.let {
-                vmDateChanged(it);
-            }
+        viewModel.vmData.value?.let {
+            vmDateChanged(it);
         }
 
         viewModel.loading.observe(this, Observer {
