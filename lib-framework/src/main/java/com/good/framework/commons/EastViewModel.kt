@@ -20,13 +20,17 @@ abstract class EastViewModel<T:VMData?>(application: Application) : BaseViewMode
     val loading = MutableLiveData<Boolean>();
 
     open fun initModel(){
-        vmData.value = initData();
+        vmData.value?:let {
+            vmData.value = initData();
+        }
         vmData.value!!.code = VMData.Code.CODE_DEFAULT;
         loading.value = false;
     }
 
     open fun initOnFragmentActivityCreate(){
-
+        vmData.value?:let {
+            vmData.value = initData();
+        }
     }
 
     fun postVMData(vmData: T){
