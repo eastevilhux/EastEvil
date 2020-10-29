@@ -175,24 +175,4 @@ abstract class BaseActivity<D : ViewDataBinding,V : EastViewModel<*>> : AppCompa
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
-
-    override fun onStop() {
-        super.onStop()
-        viewModel?.onStop();
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel?.onResume();
-    }
-
-    override fun onPause() {
-        super.onPause()
-        viewModel?.onPause();
-    }
-
-    override fun onStart() {
-        super.onStart()
-        viewModel?.onStart();
-    }
 }

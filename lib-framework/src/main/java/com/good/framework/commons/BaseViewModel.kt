@@ -2,7 +2,9 @@ package com.good.framework.commons
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.OnLifecycleEvent
 import com.auction.framework.utils.AutoDisposeUtil
 import com.uber.autodispose.AutoDisposeConverter
 
@@ -14,35 +16,36 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
     }
 
     override fun onCreate(owner: LifecycleOwner?) {
-        //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onDestroy(owner: LifecycleOwner?) {
-        //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onLifecycleChange(owner: LifecycleOwner?) {
-        //To change body of created functions use File | Settings | File Templates.
     }
 
     protected fun <T> bindLifecycle() : AutoDisposeConverter<T> {
         return AutoDisposeUtil.bindLifecycle(mLifecycleOwner!!)
     }
 
-    open fun onStart(){
-
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    protected open fun onCreate() {
     }
 
-    open fun onResume(){
-
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    protected open fun onResume() {
     }
 
-    open fun onStop(){
-
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    protected open fun onStart() {
     }
 
-    open fun onPause(){
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    protected open fun onPause() {
+    }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    protected open fun onStop() {
     }
 
 }
