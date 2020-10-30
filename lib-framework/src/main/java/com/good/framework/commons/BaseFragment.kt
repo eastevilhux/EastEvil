@@ -32,6 +32,7 @@ abstract open class BaseFragment<D : ViewDataBinding,V : EastViewModel<*>> : Fra
         savedInstanceState: Bundle?
     ): View? {
         dataBinding = DataBindingUtil.inflate(inflater,getLayoutRes(),container,false);
+        dataBinding.lifecycleOwner = this;
         return dataBinding!!.root;
     }
 
@@ -48,9 +49,7 @@ abstract open class BaseFragment<D : ViewDataBinding,V : EastViewModel<*>> : Fra
         viewModel = vp.get(getVMClass()!!);
         viewModel.setLifecycleOwner(this);
         lifecycle.addObserver(viewModel);
-        dataBinding.lifecycleOwner = this;
         initView()
-        viewModel.initOnFragmentActivityCreate();
         viewModel?.error.observe(this, Observer {
             when(it.type){
                 ErrorType.ERROR_LOGIN->{
@@ -82,7 +81,7 @@ abstract open class BaseFragment<D : ViewDataBinding,V : EastViewModel<*>> : Fra
         super.onActivityCreated(savedInstanceState)
 
         Log.d(TAG,"onActivityCreated");
-
+        viewModel.initOnFragmentActivityCreate();
 
     }
 
