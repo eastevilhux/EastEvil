@@ -39,10 +39,9 @@ abstract open class BaseFragment<D : ViewDataBinding,V : EastViewModel<*>> : Fra
         super.onAttach(context)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        Log.d(TAG,"onActivityCreated");
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d(TAG,"onCreate");
 
         var vp = ViewModelProvider(this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(activity!!.application));
@@ -77,6 +76,14 @@ abstract open class BaseFragment<D : ViewDataBinding,V : EastViewModel<*>> : Fra
                 getBaseActivity()?.dismissLoading();
             }
         })
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        Log.d(TAG,"onActivityCreated");
+
+
     }
 
     abstract fun getLayoutRes():Int;
