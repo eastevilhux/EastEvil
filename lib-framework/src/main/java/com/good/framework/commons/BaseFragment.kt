@@ -49,7 +49,6 @@ abstract open class BaseFragment<D : ViewDataBinding,V : EastViewModel<*>> : Fra
         viewModel = vp.get(getVMClass()!!);
         viewModel.setLifecycleOwner(this);
         lifecycle.addObserver(viewModel);
-        initView()
         viewModel?.error.observe(this, Observer {
             when(it.type){
                 ErrorType.ERROR_LOGIN->{
@@ -82,7 +81,7 @@ abstract open class BaseFragment<D : ViewDataBinding,V : EastViewModel<*>> : Fra
 
         Log.d(TAG,"onActivityCreated");
         viewModel.initOnFragmentActivityCreate();
-
+        initView()
     }
 
     abstract fun getLayoutRes():Int;
