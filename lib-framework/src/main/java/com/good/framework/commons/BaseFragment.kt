@@ -49,6 +49,7 @@ abstract open class BaseFragment<D : ViewDataBinding,V : EastViewModel<*>> : Fra
         viewModel = vp.get(getVMClass()!!);
         viewModel.setLifecycleOwner(this);
         lifecycle.addObserver(viewModel);
+        viewModel.initModel();
         viewModel?.error.observe(this, Observer {
             when(it.type){
                 ErrorType.ERROR_LOGIN->{
