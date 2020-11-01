@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ObservableField;
@@ -144,6 +145,22 @@ public class InputLayout extends FrameLayout implements CountDownTimerButton.OnC
 
     public void startTime(long time){
         dataBinding.menuButton.start(time);
+    }
+
+    public void setInput(String text){
+        if(isMobile.get()){
+            dataBinding.phoneEditview.setText(text);
+        }else{
+            dataBinding.inputEditview.setText(text);
+        }
+    }
+
+    public void setInput(@StringRes int resId){
+        if(isMobile.get()){
+            dataBinding.phoneEditview.setText(resId);
+        }else{
+            dataBinding.inputEditview.setText(resId);
+        }
     }
 
     public String getInputText(){
