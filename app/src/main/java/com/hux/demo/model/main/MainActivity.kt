@@ -76,7 +76,7 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
             .title("fuck")
             .amount("0.12")
             .typeText("sdfasdfas")
-            .psdNumber(3)
+            .psdNumber(6)
             .onPasswordDialogListener(this)
             .build();
 

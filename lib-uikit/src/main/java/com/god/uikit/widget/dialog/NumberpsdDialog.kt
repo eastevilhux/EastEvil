@@ -43,7 +43,7 @@ class NumberpsdDialog private constructor(builder: Builder) : Dialog(builder.con
         dataBinding.titleText = title;
         dataBinding.amount = amount;
         dataBinding.moneyType = typeText;
-        dataBinding.psdnumber = psdNumber;
+        dataBinding.passwordView.setCount(psdNumber);
 
         setContentView(dataBinding.root)
 
@@ -56,6 +56,11 @@ class NumberpsdDialog private constructor(builder: Builder) : Dialog(builder.con
         //lp.alpha = 0.7f; // 透明度
         //lp.alpha = 0.7f; // 透明度
         dialogWindow!!.attributes = lp
+
+        var size = lp.width - 20.dip2Px();
+        size /= psdNumber;
+        dataBinding.passwordView.setCodeWidth(size)
+        dataBinding.passwordView.setCodeHeight(size);
 
         dataBinding.passwordView.setmInputOverListener(this)
     }

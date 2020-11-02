@@ -23,7 +23,7 @@ import com.god.uikit.R;
 public class EastCodeView extends EditText {
 
     private int mHeight = 120;
-    private int mWidth = 120;
+    private int mWidth = 50;
     private int mLineWidth = 1;
     private int mLineColor = Color.parseColor("#ff666666");
     private int mFillColor = Color.WHITE;
@@ -261,6 +261,14 @@ public class EastCodeView extends EditText {
 
     enum InputStatus {
         No_Input, Have_Input, To_Input;
+    }
+
+    public void setCodeWidth(int width){
+        this.mWidth = width;
+    }
+
+    public void setCodeHeight(int height){
+        this.mHeight = height;
     }
 
     /**

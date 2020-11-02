@@ -113,10 +113,12 @@
 
             <com.god.uikit.widget.EastCodeView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_80"
+                android:layout_height="wrap_content"
+                app:width="50dp"
+                android:height="80dp"
                 android:background="@color/colorWhite"
-                app:lineColor="@color/colorAccent"/>
-
+                app:lineColor="@color/colorAccent"
+                app:count="6"/>
 
 
             <TextView
