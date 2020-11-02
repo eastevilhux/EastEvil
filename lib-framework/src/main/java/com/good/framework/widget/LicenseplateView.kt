@@ -102,6 +102,14 @@ class LicenseplateView : FrameLayout, AbbreviationPopupWindow.OnAbbreviationList
         return sb.toString();
     }
 
+    fun getAbbreviation():String{
+        return dataBinding?.tvAbbreviation?.text.toString();
+    }
+
+    fun getLetter(): String {
+        return dataBinding?.tvLetter?.text.toString();
+    }
+
     fun onViewClick(view : View){
         when(view.id){
             R.id.tv_abbreviation->{

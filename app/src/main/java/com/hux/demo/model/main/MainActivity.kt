@@ -18,10 +18,12 @@ import com.good.framework.commons.EastConstants
 import com.good.framework.db.LicensePlateDao
 import com.good.framework.entity.ImageData
 import com.good.framework.http.entity.City
+import com.good.framework.http.entity.LicensePlate
 import com.good.framework.model.city.CitylistActivity
 import com.good.framework.model.uploadimg.UploadImgData
 import com.good.framework.utils.Test
 import com.good.framework.utils.toUploadImage
+import com.good.framework.widget.LicenseplateView
 import com.hux.demo.R
 import com.hux.demo.commons.AppActivity
 import com.hux.demo.commons.TestApp
@@ -30,7 +32,7 @@ import java.lang.StringBuilder
 
 class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
     CalendarDialog.OnCalendarListener, ListDialog.OnDialogItemClickListener,
-    NumberpsdDialog.OnPasswordDialogListener {
+    NumberpsdDialog.OnPasswordDialogListener, LicenseplateView.OnLicenseplateListener {
 
     var calendarDialog : CalendarDialog? = null;
 
@@ -54,6 +56,7 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
         dataBinding?.lvLicenseplate!!.setView(dataBinding?.mainLayout!!);
         var dao = (application as TestApp).getDaoSession()?.licensePlateDao;
         dataBinding?.lvLicenseplate!!.setLicensePlateDao(dao);
+        dataBinding?.lvLicenseplate!!.setOnLicenseplateListener(this)
 
         var itemList = mutableListOf<Item>();
         itemList.add(Item.Bulder().text("fuck1").haveIcon(true).buildItem(1,2).bulder());
@@ -178,6 +181,14 @@ class MainActivity : AppActivity<ActivityMainBinding, MainViewModel>(),
 
     override fun onDismiss() {
         showToastShort("fuck???");
+    }
+
+    override fun onAlphabetic(alphabetiic: String?) {
+        showToastShort(alphabetiic?:"")
+    }
+
+    override fun onAbbreviation(licensePlate: LicensePlate?) {
+
     }
 
 
