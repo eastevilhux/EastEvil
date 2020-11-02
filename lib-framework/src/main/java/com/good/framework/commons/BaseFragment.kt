@@ -19,6 +19,7 @@ import com.god.uikit.widget.ViewToast
 import com.good.framework.R
 import com.good.framework.entity.Error
 import com.good.framework.entity.ErrorType
+import com.good.framework.entity.SuccessResult
 import com.good.framework.entity.VMData
 
 abstract open class BaseFragment<D : ViewDataBinding,V : EastViewModel<*>> : Fragment(),TitleLayout.OnTitleListener{
@@ -68,6 +69,10 @@ abstract open class BaseFragment<D : ViewDataBinding,V : EastViewModel<*>> : Fra
             vmDateChanged(it);
         }
 
+        viewModel?.success?.observe(this, Observer {
+            success(it);
+        })
+
         viewModel.loading.observe(this, Observer {
             if(it){
                 getBaseActivity()?.showLoading();
@@ -106,6 +111,10 @@ abstract open class BaseFragment<D : ViewDataBinding,V : EastViewModel<*>> : Fra
     }
 
     open fun vmDateChanged(vmData: VMData){
+
+    }
+
+    open fun success(data:SuccessResult){
 
     }
 
