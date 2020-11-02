@@ -32,6 +32,7 @@ abstract open class BaseFragment<D : ViewDataBinding,V : EastViewModel<*>> : Fra
         savedInstanceState: Bundle?
     ): View? {
         dataBinding = DataBindingUtil.inflate(inflater,getLayoutRes(),container,false);
+        dataBinding.lifecycleOwner = this;
         return dataBinding!!.root;
     }
 
@@ -39,19 +40,16 @@ abstract open class BaseFragment<D : ViewDataBinding,V : EastViewModel<*>> : Fra
         super.onAttach(context)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        Log.d(TAG,"onActivityCreated");
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d(TAG,"onCreate");
 
         var vp = ViewModelProvider(this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(activity!!.application));
         viewModel = vp.get(getVMClass()!!);
         viewModel.setLifecycleOwner(this);
         lifecycle.addObserver(viewModel);
-        dataBinding.lifecycleOwner = this;
-        initView()
-        viewModel.initOnFragmentActivityCreate();
+        viewModel.initModel();
         viewModel?.error.observe(this, Observer {
             when(it.type){
                 ErrorType.ERROR_LOGIN->{
@@ -77,6 +75,14 @@ abstract open class BaseFragment<D : ViewDataBinding,V : EastViewModel<*>> : Fra
                 getBaseActivity()?.dismissLoading();
             }
         })
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        Log.d(TAG,"onActivityCreated");
+        viewModel.initOnFragmentActivityCreate();
+        initView()
     }
 
     abstract fun getLayoutRes():Int;
