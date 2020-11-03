@@ -26,11 +26,10 @@ public class RetrofitConfigure {
             if (RetrofitConfigure.map == null || RetrofitConfigure.map.isEmpty()) {
                 throw new NullPointerException("the service is null");
             }
-
             OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
-                    .connectTimeout(HttpConfig.TIME_OUT, TimeUnit.SECONDS)
-                    .readTimeout(HttpConfig.TIME_OUT, TimeUnit.SECONDS)
-                    .writeTimeout(HttpConfig.TIME_OUT, TimeUnit.SECONDS)
+                    .connectTimeout(HttpConfig.Companion.getInstance().timeOut(), TimeUnit.SECONDS)
+                    .readTimeout(HttpConfig.Companion.getInstance().timeOut(), TimeUnit.SECONDS)
+                    .writeTimeout(HttpConfig.Companion.getInstance().timeOut(), TimeUnit.SECONDS)
                     .addInterceptor(new HttpInterceptor())
                     .addInterceptor(new LogInterceptor())
                     .addNetworkInterceptor(new HttpInterceptor())

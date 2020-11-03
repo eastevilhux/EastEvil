@@ -3,6 +3,7 @@ package com.good.framework.http
 import java.nio.charset.Charset
 
 class HttpConfig private constructor(){
+    private var TIME_OUT = 20L;
 
     companion object{
         val instance : HttpConfig by lazy(mode=  LazyThreadSafetyMode.SYNCHRONIZED){
@@ -17,7 +18,7 @@ class HttpConfig private constructor(){
         const val CODE_SERVICE_ERROR = -4;
         var HTTP_CHARSET = Charset.forName("UTF-8");
         const val UTF8_CHARSET = "UTF-8";
-        const val TIME_OUT = 20L;
+
 
         //Retrofit缓存时间为1小时
         const val MAX_AGE = 60
@@ -34,4 +35,13 @@ class HttpConfig private constructor(){
             HTTP_CHARSET = Charset.forName(charset);
         }
     }
+
+    fun timeOut() : Long {
+        return TIME_OUT;
+    }
+
+    fun timeOut(timeOut:Long = 20L){
+        this.TIME_OUT = timeOut;
+    }
+
 }
