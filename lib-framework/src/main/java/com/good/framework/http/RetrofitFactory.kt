@@ -1,17 +1,13 @@
 package com.good.framework.http
 
-import com.good.framework.http.commons.CustomGsonConverterFactory
 import com.good.framework.http.interceptor.HttpInterceptor
 import com.good.framework.http.interceptor.LogInterceptor
-import com.good.framework.http.interceptor.NetInterceptor
-import com.good.framework.http.interceptor.ParamsInterceptor
 import com.good.framework.http.retrofit.adapter.EastCallAdapterFactory
 import com.good.framework.http.retrofit.convert.EastConverterFactory
 import com.good.framework.http.service.BaseService
 import com.good.framework.utils.JsonUtil
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import java.util.concurrent.TimeUnit
 
 class RetrofitFactory private constructor(){
@@ -24,9 +20,9 @@ class RetrofitFactory private constructor(){
     val baseService : BaseService by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED){
 
         val okHttpClient = OkHttpClient().newBuilder()
-            .connectTimeout(HttpConfig.TIME_OUT, TimeUnit.SECONDS)
-            .readTimeout(HttpConfig.TIME_OUT, TimeUnit.SECONDS)
-            .writeTimeout(HttpConfig.TIME_OUT, TimeUnit.SECONDS)
+            .connectTimeout(HttpConfig.instance.timeOut(), TimeUnit.SECONDS)
+            .readTimeout(HttpConfig.instance.timeOut(), TimeUnit.SECONDS)
+            .writeTimeout(HttpConfig.instance.timeOut(), TimeUnit.SECONDS)
             .addInterceptor(HttpInterceptor())
             .addInterceptor(LogInterceptor())
             .addNetworkInterceptor(HttpInterceptor())
